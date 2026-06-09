@@ -62,7 +62,7 @@ img,svg{display:block}
 #c{position:fixed;inset:0;pointer-events:none;z-index:0;transition:transform .15s ease}
 
 /* ─── TYPOGRAPHY ────────────────────────────────────── */
-h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;line-height:1.1;letter-spacing:-.4px}
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;line-height:1.1;letter-spacing:-.4px;overflow-wrap:break-word;hyphens:auto}
 h1{font-size:clamp(44px,6.2vw,86px);font-weight:800}
 h2{font-size:clamp(30px,4vw,56px);font-weight:800}
 h3{font-size:clamp(19px,2.5vw,27px);font-weight:700;letter-spacing:-.3px}
@@ -137,6 +137,8 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.nm a:focus-visible,.nmo
 .nmob.open{display:block}
 .nmob a{display:block;padding:9px 14px;font-size:14px;font-weight:500;color:var(--dim);border-radius:12px;transition:all .2s ease}
 .nmob a:hover{color:var(--warm);background:rgba(240,237,230,.06)}
+.nmob .nmob-cta{margin:10px 14px 2px;padding:13px;text-align:center;background:var(--amb);color:#1a0e00;font-weight:600;border-radius:14px}
+.nmob .nmob-cta:hover{background:var(--amb-lt);color:#1a0e00}
 
 /* ─── HERO ──────────────────────────────────────────── */
 #hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 24px 90px;overflow:hidden}
@@ -238,7 +240,7 @@ a:focus-visible,button:focus-visible,.btn:focus-visible,.nm a:focus-visible,.nmo
 
 /* ─── CERCLE DE GARDIENS ───────────────────────────── */
 #cercle .ph{margin-bottom:52px}
-.cir-art{display:flex;justify-content:center;align-items:center}
+.cir-art{display:flex;justify-content:center;align-items:center;min-width:0}
 .cir-art svg{width:100%;max-width:480px;height:auto}
 .cir-list{display:flex;flex-direction:column;gap:14px}
 .cir-item{padding:20px 22px;background:var(--sf);border:1px solid var(--bd);border-radius:16px;transition:border-color .3s,transform .3s var(--ease)}
@@ -602,6 +604,19 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
   .lg-grid{gap:8px}
   .lgc{font-size:13px;padding:8px 14px}
   .pca{font-size:44px}
+  /* boutons à texte long : on autorise le retour à la ligne plutôt que de déborder */
+  .btn-lg,.btn-xl{white-space:normal;text-align:center}
+}
+@media(max-width:430px){
+  /* petits téléphones (≤430) : un titre plus compact + marges resserrées
+     pour qu'un mot long comme « Superprofesseur » reste entier et lisible */
+  .ctr{padding:0 20px}
+  h2{font-size:24px}
+}
+@media(max-width:360px){
+  /* très petits écrans : on retire le bouton CTA inline de la nav (redondant)
+     — le burger + son bouton « Essai gratuit » prennent le relais */
+  .nr .btn-a{display:none}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
@@ -686,6 +701,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
     <a href="#cercle">Le cercle de gardiens</a>
     <a href="#tarifs">Tarifs</a>
     <a href="#faq">FAQ</a>
+    <a href="#tarifs" class="nmob-cta">Essai gratuit →</a>
   </div>
 </nav>
 
