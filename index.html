@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sidélia — L'IA protège. Vous aimez.</title>
+<meta name="description" content="Sidélia réunit Alma (protection parentale éthique) et Orion (Superprofesseur IA) dans un seul écosystème familial. Vous êtes informé, jamais surveillant. Dès 7,50 €/mois — essai 3 jours gratuit.">
+<meta name="keywords" content="contrôle parental éthique, sécurité enfant IA, aide aux devoirs IA, protection famille, co-parentalité, Alma, Orion">
+<meta name="author" content="Sidélia">
+<meta name="theme-color" content="#080F0B">
+<meta name="color-scheme" content="dark">
+
+<!-- Domaine : sidelia.fr (principal) · sidelia.app redirige dessus. RESTE : héberger og-cover.png (1200×630) à la racine du site. -->
+<link rel="canonical" href="https://sidelia.fr/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sidélia">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:url" content="https://sidelia.fr/">
+<meta property="og:title" content="Sidélia — L'IA protège. Vous aimez.">
+<meta property="og:description" content="Alma veille, Orion guide. Contrôle parental éthique + Superprofesseur IA, dès 7,50 €/mois. Vous êtes informé, pas surveillant.">
+<meta property="og:image" content="https://sidelia.fr/og-cover.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Sidélia — Alma veille, Orion guide.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sidélia — L'IA protège. Vous aimez.">
+<meta name="twitter:description" content="Contrôle parental éthique + Superprofesseur IA. Vous êtes informé, pas surveillant. Dès 7,50 €/mois.">
+<meta name="twitter:image" content="https://sidelia.fr/og-cover.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20120'%3E%3Crect%20width='120'%20height='120'%20rx='26'%20fill='%23080F0B'/%3E%3Cpath%20d='M60,30L67,49L86,45.5L73,60L86,74.5L67,71L60,90L53,71L34,74.5L47,60L34,45.5L53,49Z'%20fill='%23E8C45A'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20120%20120'%3E%3Crect%20width='120'%20height='120'%20rx='26'%20fill='%23080F0B'/%3E%3Cpath%20d='M60,30L67,49L86,45.5L73,60L86,74.5L67,71L60,90L53,71L34,74.5L47,60L34,45.5L53,49Z'%20fill='%23E8C45A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+/* ─── VARIABLES ─────────────────────────────────────── */
+:root{
+  --bg:#080F0B;--sf:#111A14;--sf2:#0D1710;--deep:#0A2318;
+  --amb:#C8922A;--amb-lt:#E8C45A;--amb-dim:rgba(200,146,42,.13);--amb-glow:rgba(200,146,42,.22);
+  --warm:#F0EDE6;--dim:#A6AFAB;
+  --grn:#4AE38C;--grn-dim:rgba(74,227,140,.10);--grn-glow:rgba(74,227,140,.20);
+  --bd:#1C2E22;--bda:rgba(200,146,42,.25);--bdg:rgba(74,227,140,.25);
+  --danger:#C0392B;--warn:#E67E22;
+  --rc:20px;--rb:14px;--rn:28px;--max:1180px;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ─── RESET ─────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--bg);color:var(--warm);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;opacity:0;transition:opacity .5s ease}
+body.loaded{opacity:1}
+a{color:inherit;text-decoration:none}
+img,svg{display:block}
+
+/* ─── PROGRESS BAR ──────────────────────────────────── */
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--amb),var(--amb-lt));z-index:10001;width:0;transition:width .1s linear;pointer-events:none}
+
+/* ─── NOISE ─────────────────────────────────────────── */
+#noise{position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.4}
+
+/* ─── CANVAS ────────────────────────────────────────── */
+#c{position:fixed;inset:0;pointer-events:none;z-index:0;transition:transform .15s ease}
+
+/* ─── TYPOGRAPHY ────────────────────────────────────── */
+h1,h2,h3,h4,h5{font-family:'Syne',sans-serif;line-height:1.1;letter-spacing:-.4px}
+h1{font-size:clamp(44px,6.2vw,86px);font-weight:800}
+h2{font-size:clamp(30px,4vw,56px);font-weight:800}
+h3{font-size:clamp(19px,2.5vw,27px);font-weight:700;letter-spacing:-.3px}
+h4{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.ta{color:var(--amb)}.tg{color:var(--grn)}.td{color:var(--dim)}
+em{font-style:normal}
+
+/* ─── LAYOUT ────────────────────────────────────────── */
+.ctr{max-width:var(--max);margin:0 auto;padding:0 24px}
+section{position:relative;padding:108px 0;z-index:1}
+
+/* ─── GLOWS ─────────────────────────────────────────── */
+.gl{position:absolute;border-radius:50%;pointer-events:none;filter:blur(70px)}
+.gl-a{background:radial-gradient(ellipse,rgba(200,146,42,.22) 0%,transparent 70%)}
+.gl-g{background:radial-gradient(ellipse,rgba(74,227,140,.16) 0%,transparent 70%)}
+
+/* ─── TAG LABELS ────────────────────────────────────── */
+.tag{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;margin-bottom:20px}
+.tag-a{background:var(--amb-dim);border:1px solid var(--bda);color:var(--amb-lt)}
+.tag-g{background:var(--grn-dim);border:1px solid var(--bdg);color:var(--grn)}
+.tag-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;animation:pd 2s ease-in-out infinite}
+.td-a{background:var(--amb)}.td-g{background:var(--grn)}
+@keyframes pd{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.65)}}
+
+/* ─── DIVIDER ───────────────────────────────────────── */
+.div{height:1px;background:linear-gradient(90deg,transparent,var(--bd),transparent);opacity:.85;margin:48px 24px}
+
+/* ─── BUTTONS ───────────────────────────────────────── */
+.btn{display:inline-flex;align-items:center;justify-content:center;font-family:'DM Sans',sans-serif;font-weight:600;cursor:pointer;transition:all .2s var(--ease);white-space:nowrap;text-decoration:none;border:none;letter-spacing:-.1px}
+.btn-a{background:var(--amb);color:#1a0e00;border-radius:var(--rb);padding:11px 24px;font-size:14px}
+.btn-a:hover{background:var(--amb-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,146,42,.25)}
+.btn-o{background:transparent;color:var(--warm);border:1px solid var(--bd);border-radius:var(--rb);padding:11px 24px;font-size:14px}
+.btn-o:hover{border-color:var(--bda);color:var(--amb);transform:translateY(-2px);box-shadow:0 0 14px rgba(200,146,42,.14)}
+.btn-lg{padding:14px 32px;font-size:16px;border-radius:16px}
+.btn-xl{padding:16px 40px;font-size:17px;border-radius:18px}
+.btn:active{transform:translateY(0);opacity:.93}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ─── FOCUS VISIBLE (accessibilité clavier) ─────────── */
+a:focus-visible,button:focus-visible,.btn:focus-visible,.nm a:focus-visible,.nmob a:focus-visible,.ptb:focus-visible,.fqq:focus-visible,.fc-ul a:focus-visible,.mbtn:focus-visible{outline:2px solid var(--amb);outline-offset:3px;border-radius:8px}
+
+/* ─── SCROLL REVEAL ─────────────────────────────────── */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .75s var(--ease),transform .75s var(--ease)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.stg>*{opacity:0;transform:translateY(22px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.stg.vis>*{opacity:1;transform:translateY(0)}
+.stg.vis>*:nth-child(1){transition-delay:.04s}
+.stg.vis>*:nth-child(2){transition-delay:.10s}
+.stg.vis>*:nth-child(3){transition-delay:.16s}
+.stg.vis>*:nth-child(4){transition-delay:.22s}
+.stg.vis>*:nth-child(5){transition-delay:.28s}
+.stg.vis>*:nth-child(6){transition-delay:.34s}
+.stg.vis>*:nth-child(7){transition-delay:.40s}
+.SC{transition-delay:.08s}
+
+/* ─── NAV ───────────────────────────────────────────── */
+#nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:1000;width:calc(100% - 40px);max-width:1140px}
+.ni{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(8,15,11,.68);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border:1px solid var(--bd);border-radius:var(--rn);transition:all .35s ease;gap:16px}
+#nav.scrolled .ni{background:rgba(8,15,11,.88);border-color:var(--bda);box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.nl{display:flex;align-items:center;gap:9px;font-family:'Syne',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.3px;flex-shrink:0}
+.nl svg{width:26px;height:26px;flex-shrink:0}
+.nm{display:flex;align-items:center;gap:2px;list-style:none}
+.nm a{padding:6px 13px;border-radius:11px;font-size:13px;font-weight:500;color:var(--dim);transition:all .2s ease}
+.nm a:hover,.nm a.act{color:var(--warm);background:rgba(240,237,230,.07)}
+.nr{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.mbtn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+.mbtn span{display:block;width:22px;height:2px;background:var(--warm);border-radius:2px;transition:all .3s ease}
+.mbtn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mbtn.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.mbtn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nmob{display:none;padding:8px 0 12px;border-top:1px solid var(--bd);margin-top:6px}
+.nmob.open{display:block}
+.nmob a{display:block;padding:9px 14px;font-size:14px;font-weight:500;color:var(--dim);border-radius:12px;transition:all .2s ease}
+.nmob a:hover{color:var(--warm);background:rgba(240,237,230,.06)}
+
+/* ─── HERO ──────────────────────────────────────────── */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:130px 24px 90px;overflow:hidden}
+.hg1{position:absolute;top:-10%;right:5%;width:750px;height:750px;background:radial-gradient(ellipse,rgba(200,146,42,.20) 0%,transparent 65%);border-radius:50%;filter:blur(80px);pointer-events:none}
+.hg2{position:absolute;bottom:-15%;left:0%;width:650px;height:650px;background:radial-gradient(ellipse,rgba(74,227,140,.15) 0%,transparent 65%);border-radius:50%;filter:blur(80px);pointer-events:none}
+.hc{position:relative;z-index:2;max-width:940px;margin:0 auto}
+.hbrow{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;background:var(--amb-dim);border:1px solid var(--bda);border-radius:20px;font-size:12px;font-weight:500;color:var(--amb-lt);letter-spacing:.5px;margin-bottom:24px;opacity:0;animation:fiu .6s var(--ease) .1s both}
+.hbrow-dot{width:7px;height:7px;border-radius:50%;background:var(--amb);animation:pd 1.8s ease-in-out infinite}
+@keyframes fiu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* Hero logo orbit rings */
+.hlogo-wrap{position:relative;width:200px;height:200px;margin:0 auto 32px;opacity:0;animation:fiu .7s var(--ease) .18s both}
+.orbit-ring{position:absolute;border-radius:50%;animation:orb-spin linear infinite}
+.orbit-ring::before{content:'';position:absolute;width:8px;height:8px;border-radius:50%;top:0;left:50%;transform:translate(-50%,-50%)}
+.or1{inset:-32px;border:1px solid rgba(200,146,42,.15);animation-duration:11s}
+.or1::before{background:var(--amb);box-shadow:0 0 10px var(--amb),0 0 20px rgba(200,146,42,.4)}
+.or2{inset:-56px;border:1px solid rgba(74,227,140,.12);animation-duration:17s;animation-direction:reverse}
+.or2::before{background:var(--grn);box-shadow:0 0 10px var(--grn),0 0 20px rgba(74,227,140,.4);width:6px;height:6px}
+.or3{inset:-80px;border:1px dashed rgba(200,146,42,.07);animation-duration:24s}
+.or3::before{width:4px;height:4px;background:var(--amb);box-shadow:0 0 8px rgba(200,146,42,.6)}
+@keyframes orb-spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.hlogo{position:relative;z-index:2;width:200px;height:200px}
+
+.ht{margin-bottom:16px;opacity:0;animation:fiu .7s var(--ease) .26s both}
+.ht .l1{display:block;background:linear-gradient(130deg,#FADA6E 0%,#C8922A 55%,#9A6115 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;background-size:200% auto;animation:gsh 6.5s ease infinite .5s}
+.ht .lg{display:block;color:var(--grn)}
+.ht .l2{display:block;color:var(--warm)}
+@keyframes gsh{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+
+.hsubt{font-size:19px;color:var(--dim);max-width:560px;margin:0 auto 32px;line-height:1.6;opacity:0;animation:fiu .7s var(--ease) .34s both}
+.hctas{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:40px;flex-wrap:wrap;opacity:0;animation:fiu .7s var(--ease) .42s both}
+.hduo{display:inline-flex;align-items:center;gap:20px;padding:12px 24px;background:var(--sf);border:1px solid var(--bd);border-radius:60px;font-size:13px;color:var(--dim);flex-wrap:wrap;justify-content:center;opacity:0;animation:fiu .7s var(--ease) .5s both}
+.hdp{display:flex;align-items:center;gap:9px;font-weight:500}
+.hdp svg{width:26px;height:26px}
+.hdp span{color:var(--warm)}
+.hduo-sep{color:var(--bd);font-size:18px}
+.hscroll{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--dim);font-size:10px;letter-spacing:1.2px;text-transform:uppercase;animation:sb 2.4s ease-in-out infinite .5s;opacity:0;animation-fill-mode:both}
+.hscroll-arr{width:18px;height:18px;border-right:1.5px solid var(--dim);border-bottom:1.5px solid var(--dim);transform:rotate(45deg)}
+@keyframes sb{0%{opacity:0;transform:translateX(-50%) translateY(-4px)}20%{opacity:.7}80%{opacity:.7}100%{opacity:0;transform:translateX(-50%) translateY(10px)}}
+
+/* ─── MARQUEE ───────────────────────────────────────── */
+.mrq{overflow:hidden;border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);padding:13px 0;background:var(--sf2);position:relative;z-index:1}
+.mrq-track{display:flex;align-items:center;gap:0;white-space:nowrap}
+.mrq-inner{display:flex;align-items:center;gap:28px;animation:mrqscroll 30s linear infinite;flex-shrink:0;padding-right:28px}
+.mrq span{font-size:12px;font-weight:500;color:var(--dim);letter-spacing:.3px}
+.mrq-dot{color:var(--amb) !important;font-size:9px}
+.mrq:hover .mrq-inner{animation-play-state:paused}
+@keyframes mrqscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─── ETHICS ────────────────────────────────────────── */
+#ethique{background:linear-gradient(180deg,transparent 0%,rgba(10,35,24,.22) 50%,transparent 100%)}
+.eth-hd{text-align:center;margin-bottom:76px}
+.eth-hd h2{margin-bottom:16px;max-width:720px;margin-left:auto;margin-right:auto}
+.eth-hd p{color:var(--dim);font-size:18px;max-width:560px;margin:0 auto}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bd);border:1px solid var(--bd);border-radius:24px;overflow:hidden;margin-bottom:72px}
+.sc{background:var(--sf);padding:46px 30px;text-align:center}
+.sn{font-family:'Syne',sans-serif;font-size:clamp(50px,7vw,76px);font-weight:800;letter-spacing:-2.5px;line-height:1;margin-bottom:8px}
+.sn.g{color:var(--grn)}.sn.a{color:var(--amb)}.sn.w{color:var(--warm)}
+.sl{font-size:14px;color:var(--dim);line-height:1.5}
+.eth-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:48px}
+.eth-col{display:flex;flex-direction:column;gap:10px}
+.eth-col-hd{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:9px 14px;border-radius:10px;margin-bottom:4px}
+.ech-no{color:#E05252;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.2)}
+.ech-yes{color:var(--grn);background:var(--grn-dim);border:1px solid var(--bdg)}
+.ei{display:flex;align-items:flex-start;gap:14px;padding:18px;background:var(--sf);border:1px solid var(--bd);border-radius:16px;transition:border-color .3s}
+.ei:hover{border-color:var(--bda)}
+.ei.yes{border-color:rgba(74,227,140,.1)}.ei.yes:hover{border-color:var(--bdg)}
+.ei-ico{flex-shrink:0;margin-top:1px;color:#E0625C}
+.ei-ico svg{width:22px;height:22px}
+.ei.yes .ei-ico{color:var(--grn)}
+.ei h4{font-size:14px;font-weight:700;margin-bottom:4px}
+.ei p{font-size:13px;color:var(--dim);line-height:1.5}
+.rgpd-b{padding:26px 30px;background:rgba(10,35,24,.65);border:1px solid var(--bdg);border-radius:22px;display:flex;align-items:center;gap:18px}
+.rgpd-ico{flex-shrink:0;color:var(--grn)}
+.rgpd-ico svg{width:34px;height:34px}
+.rgpd-b h4{font-size:16px;margin-bottom:4px}
+.rgpd-b p{font-size:14px;color:var(--dim)}
+
+/* ─── COMPARATIF ÉTHIQUE ───────────────────────────── */
+.cmp-title{text-align:center;font-size:clamp(22px,3vw,30px);margin:64px auto 22px;max-width:560px}
+.cmp{border:1px solid var(--bd);border-radius:22px;overflow:hidden;max-width:860px;margin:0 auto}
+.cmp-hd,.cmp-row{display:grid;grid-template-columns:1.5fr 1fr 1.25fr}
+.cmp-row{border-top:1px solid var(--bd)}
+.cmp-hd>div{padding:16px 20px;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.cmp-hd .cmp-c-them,.cmp-hd .cmp-c-us{text-align:center;border-left:1px solid var(--bd)}
+.cmp-hd .cmp-c-them{color:var(--dim)}
+.cmp-hd .cmp-c-us{color:var(--grn);background:var(--grn-dim)}
+.cmp-row>div{padding:15px 20px;font-size:13.5px;display:flex;align-items:center;gap:6px;line-height:1.4}
+.cmp-feat{color:var(--warm);font-weight:500}
+.cmp-c-them{color:var(--dim);justify-content:center;text-align:center;border-left:1px solid var(--bd)}
+.cmp-c-us{color:var(--warm);justify-content:center;text-align:center;border-left:1px solid var(--bd);background:rgba(74,227,140,.045)}
+.cmp-x{color:#E0625C;flex-shrink:0}
+.cmp-ok{color:var(--grn);flex-shrink:0}
+@media(max-width:600px){
+  .cmp-hd,.cmp-row{grid-template-columns:1.4fr .8fr 1fr}
+  .cmp-hd>div{padding:12px 9px;font-size:9px}
+  .cmp-row>div{padding:12px 9px;font-size:11px}
+}
+
+/* ─── CERCLE DE GARDIENS ───────────────────────────── */
+#cercle .ph{margin-bottom:52px}
+.cir-art{display:flex;justify-content:center;align-items:center}
+.cir-art svg{width:100%;max-width:480px;height:auto}
+.cir-list{display:flex;flex-direction:column;gap:14px}
+.cir-item{padding:20px 22px;background:var(--sf);border:1px solid var(--bd);border-radius:16px;transition:border-color .3s,transform .3s var(--ease)}
+.cir-item:hover{border-color:var(--bda);transform:translateY(-2px)}
+.cir-ihd{display:flex;align-items:center;gap:10px;margin-bottom:7px;flex-wrap:wrap}
+.cir-ihd h4{font-size:15px}
+.cir-chip{font-size:9.5px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;padding:3px 9px;border-radius:20px;border:1px solid;white-space:nowrap}
+.cir-chip.owner,.cir-chip.parent{color:var(--amb-lt);background:var(--amb-dim);border-color:var(--bda)}
+.cir-chip.guardian{color:var(--grn);background:var(--grn-dim);border-color:var(--bdg)}
+.cir-chip.all{color:var(--dim);background:rgba(240,237,230,.05);border-color:var(--bd)}
+.cir-item p{font-size:13.5px;color:var(--dim);line-height:1.6}
+.cir-sell{margin-top:24px;padding:22px 24px;background:rgba(10,35,24,.5);border:1px solid var(--bdg);border-radius:18px;font-family:'Syne',sans-serif;font-weight:700;font-size:16px;line-height:1.55;color:var(--warm)}
+.cir-sell em{font-style:normal;color:var(--grn)}
+.cir-cta{margin-top:24px}
+
+/* ─── SHARED PRODUCT ────────────────────────────────── */
+.ph{margin-bottom:76px}
+.ph h2{max-width:700px;margin-bottom:16px}
+.ph p{font-size:18px;color:var(--dim);max-width:600px}
+.plw{display:flex;align-items:center;gap:18px;margin-bottom:28px}
+.pls{width:72px;height:72px;flex-shrink:0}
+.plt h3{font-size:30px;letter-spacing:-.5px}
+.plt p{font-size:13px;color:var(--dim);margin-top:2px}
+.pdesc{font-size:15px;color:var(--dim);line-height:1.75;margin-bottom:30px}
+.rv.L{--dir:-1}.rv.R{--dir:1}
+
+/* ─── FEATURE GRID ──────────────────────────────────── */
+.fg{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fc{background:var(--sf);border:1px solid var(--bd);border-radius:16px;padding:22px;transition:border-color .3s,transform .3s var(--ease);position:relative;overflow:hidden;--mx:50%;--my:50%}
+.fc::before{content:'';position:absolute;inset:0;background:radial-gradient(180px circle at var(--mx) var(--my),rgba(200,146,42,.07),transparent 70%);border-radius:inherit;opacity:0;transition:opacity .35s;pointer-events:none}
+.fc.g::before{background:radial-gradient(180px circle at var(--mx) var(--my),rgba(74,227,140,.07),transparent 70%)}
+.fc:hover{border-color:var(--bda);transform:translateY(-2px)}
+.fc:hover::before{opacity:1}
+.fc.g:hover{border-color:var(--bdg)}
+.fc>*{position:relative;z-index:1}
+.fc-ico{margin-bottom:12px;color:var(--amb)}
+.fc-ico svg{width:26px;height:26px}
+.fc.g .fc-ico{color:var(--grn)}
+.fc h4{font-size:14px;margin-bottom:5px}
+.fc p{font-size:12px;color:var(--dim);line-height:1.55}
+
+/* ─── SCORE DEMO ────────────────────────────────────── */
+.sd{background:var(--sf);border:1px solid var(--bda);border-radius:16px;padding:22px;margin-bottom:22px}
+.sdlbl{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--dim);margin-bottom:12px}
+.sdrow{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+.sdnum{font-family:'Syne',sans-serif;font-size:56px;font-weight:800;color:var(--grn);letter-spacing:-2px;line-height:1}
+.sdunit{font-size:13px;color:var(--dim)}
+.sdbar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden}
+.sdfill{height:100%;width:12%;background:linear-gradient(90deg,var(--grn),#6FF5A8);border-radius:3px;animation:fillbar 1.8s var(--ease) .6s both}
+@keyframes fillbar{from{width:0}to{width:12%}}
+
+/* ─── ALERT PILLS ───────────────────────────────────── */
+.al-t{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--dim);margin-bottom:10px}
+.als{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:30px}
+.ap{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;border:1px solid}
+.ap-i{background:rgba(74,227,140,.08);border-color:rgba(74,227,140,.3);color:var(--grn)}
+.ap-a{background:rgba(230,126,34,.08);border-color:rgba(230,126,34,.3);color:#E67E22}
+.ap-m{background:rgba(200,146,42,.10);border-color:rgba(200,146,42,.3);color:var(--amb-lt)}
+.ap-u{background:rgba(192,57,43,.10);border-color:rgba(192,57,43,.3);color:#E74C3C}
+.ap-c{background:rgba(139,0,0,.2);border-color:rgba(192,57,43,.5);color:#FF6666}
+
+/* ─── PRODUCT LAYOUT ────────────────────────────────── */
+.ol{display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:start}
+
+/* ─── PHONE MOCKUP ──────────────────────────────────── */
+.phone{width:234px;background:#060C08;border:1px solid #253425;border-radius:32px;padding:8px;position:relative}
+.phone.pa{box-shadow:0 16px 64px rgba(200,146,42,.07),0 0 0 1px rgba(200,146,42,.06)}
+.phone.po{box-shadow:0 16px 64px rgba(74,227,140,.07),0 0 0 1px rgba(74,227,140,.06)}
+.pn{width:72px;height:18px;background:#000;border-radius:0 0 9px 9px;margin:0 auto 6px}
+.ps{background:#070F09;border-radius:32px;padding:12px;min-height:420px}
+.p-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.p-ti{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--amb)}
+.p-ti.g{color:var(--grn)}
+.p-cl{font-size:11px;color:var(--dim)}
+.p-sc{background:var(--sf);border:1px solid var(--bda);border-radius:12px;padding:12px;margin-bottom:10px}
+.p-scl{font-size:9px;color:var(--dim);margin-bottom:4px}
+.p-scv{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;color:var(--grn);line-height:1;margin-bottom:3px}
+.p-scs{font-size:9px;color:var(--grn);margin-bottom:8px}
+.p-bar{height:4px;background:var(--bd);border-radius:2px}
+.p-bf{height:100%;width:12%;background:var(--grn);border-radius:2px;transition:width 1.5s var(--ease)}
+.p-sl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--dim);margin:10px 0 6px}
+.p-al{display:flex;align-items:flex-start;gap:6px;padding:8px;background:rgba(74,227,140,.04);border:1px solid rgba(74,227,140,.14);border-radius:8px;margin-bottom:10px}
+.p-ad{width:6px;height:6px;border-radius:50%;background:var(--grn);margin-top:3px;flex-shrink:0}
+.p-al p{font-size:9px;color:var(--dim);line-height:1.4}
+.p-gps{background:var(--sf);border:1px solid var(--bd);border-radius:10px;padding:8px;margin-bottom:8px}
+.p-gl{font-size:9px;font-weight:600;color:var(--warm);margin-bottom:6px}
+.p-gm{height:56px;background:#0A1C12;border-radius:8px;margin-bottom:6px;position:relative;overflow:hidden;background-image:linear-gradient(rgba(28,46,34,.5) 1px,transparent 1px),linear-gradient(90deg,rgba(28,46,34,.5) 1px,transparent 1px);background-size:14px 14px}
+.p-gp{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:8px;height:8px;background:var(--amb);border-radius:50%;box-shadow:0 0 8px var(--amb)}
+.p-gp::after{content:'';position:absolute;inset:-5px;border-radius:50%;border:2px solid var(--amb);opacity:.4;animation:gpp 1.6s ease-in-out infinite}
+@keyframes gpp{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(2.2);opacity:0}}
+.p-gs{font-size:9px;color:var(--dim)}
+.p-ar{display:flex;gap:6px}
+.p-ap{flex:1;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:6px;display:flex;flex-direction:column;align-items:center;gap:3px}
+.p-ai{font-size:14px;color:var(--dim);display:flex;justify-content:center}
+.p-an{font-size:8px;color:var(--dim)}
+.p-at{font-size:9px;font-weight:600}
+
+/* Orion phone extras */
+.p-xp{background:var(--sf);border:1px solid var(--bdg);border-radius:12px;padding:10px;margin-bottom:10px}
+.p-xl{font-size:9px;color:var(--dim);margin-bottom:5px}
+.p-xr{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.p-xv{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--grn)}
+.p-xlv{font-size:8px;color:var(--dim)}
+.p-xt{height:4px;background:var(--bd);border-radius:2px;overflow:hidden}
+.p-xf{height:100%;width:64%;background:linear-gradient(90deg,var(--grn),#6FF5A8);border-radius:2px;animation:xfill 2s var(--ease) 1s both}
+@keyframes xfill{from{width:0}to{width:64%}}
+.p-chat{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+.p-on{font-size:9px;font-weight:600;color:var(--grn);margin-bottom:2px}
+.bbl{font-size:9px;line-height:1.45;border-radius:8px;padding:6px 8px;max-width:85%}
+.bbl.ori{background:rgba(74,227,140,.08);border:1px solid rgba(74,227,140,.14);color:var(--warm);border-radius:8px 8px 8px 2px}
+.bbl.usr{background:var(--sf);border:1px solid var(--bd);color:var(--warm);align-self:flex-end;border-radius:8px 8px 2px 8px}
+.p-in{display:flex;align-items:center;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:7px 9px;font-size:9px;color:var(--dim)}
+
+/* ─── VALUE TABLE ───────────────────────────────────── */
+.vt{border:1px solid var(--bd);border-radius:18px;overflow:hidden}
+.vt-hd{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--dim);padding:12px 18px;border-bottom:1px solid var(--bd);background:var(--sf2)}
+.vr{display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border-bottom:1px solid var(--bd);font-size:13px}
+.vs{color:var(--dim)}
+.vp{font-family:'Syne',sans-serif;font-weight:700;font-size:15px}
+.vp.old{color:var(--warm);text-decoration:line-through;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--dim)}
+.vp.sid{color:var(--grn)}
+
+/* ─── HOW IT WORKS ──────────────────────────────────── */
+.hw-hd{text-align:center;margin-bottom:72px}
+.hw-hd h2{margin-bottom:14px}
+.hw-hd p{font-size:17px;color:var(--dim);max-width:520px;margin:0 auto}
+.hw-cta{text-align:center;margin-top:56px}
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:0;align-items:start}
+.step{text-align:center;padding:0 8px}
+.sn-num{font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--amb);margin-bottom:14px;text-transform:uppercase}
+.step-ico{margin-bottom:16px;color:var(--amb);display:flex;justify-content:center}
+.step-ico svg{width:34px;height:34px}
+.step h3{font-size:18px;margin-bottom:10px}
+.step p{font-size:13px;color:var(--dim);line-height:1.6}
+.sc-conn{display:flex;align-items:center;justify-content:center;color:var(--bd);padding-top:72px;width:40px}
+.sc-conn svg{width:28px;height:28px;opacity:.5}
+
+/* ─── PRICING ───────────────────────────────────────── */
+.pr-hd{text-align:center;margin-bottom:48px}
+.pr-hd h2{margin-bottom:14px}
+.pr-hd p{font-size:17px;color:var(--dim)}
+.pr-tg{display:flex;justify-content:center;margin-bottom:48px}
+.ptw{display:inline-flex;align-items:center;background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:4px;gap:2px}
+.ptb{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;padding:9px 20px;border:none;border-radius:11px;cursor:pointer;background:transparent;color:var(--dim);transition:all .25s ease}
+.ptb.on{background:var(--amb);color:#1a0e00}
+.ptbadge{display:inline-block;font-size:10px;font-weight:700;background:rgba(200,146,42,.2);color:var(--amb-lt);padding:1px 6px;border-radius:6px;margin-left:5px;vertical-align:middle}
+.ptb.on .ptbadge{background:rgba(0,0,0,.2);color:#1a0e00}
+.pr-grid{display:grid;grid-template-columns:1fr 1.06fr 1fr;gap:16px;align-items:start;margin-bottom:32px}
+.pcard{background:linear-gradient(180deg,rgba(74,227,140,.022),transparent 55%),var(--sf);border:1px solid var(--bd);border-radius:24px;padding:32px 28px;position:relative;transition:border-color .3s,transform .3s var(--ease)}
+.pcard:hover{transform:translateY(-3px)}
+.pcard.feat{border-color:var(--bda);box-shadow:0 0 60px rgba(200,146,42,.08),0 0 0 1px rgba(200,146,42,.2)}
+.pcard.feat::before{content:'';position:absolute;inset:-1px;border-radius:24px;background:linear-gradient(135deg,rgba(200,146,42,.12),transparent,rgba(200,146,42,.06));pointer-events:none}
+.pr-rec{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--amb-lt);background:var(--amb-dim);border:1px solid var(--bda);padding:4px 12px;border-radius:20px;margin-bottom:18px;animation:glow-pulse 2.5s ease-in-out infinite}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,146,42,0)}50%{box-shadow:0 0 16px rgba(200,146,42,.18)}}
+.pcn{font-size:14px;font-weight:600;color:var(--dim);margin-bottom:12px}
+.pca{font-family:'Syne',sans-serif;font-size:58px;font-weight:800;letter-spacing:-2.5px;line-height:1;margin-bottom:6px}
+.pca.a{color:var(--warm)}
+.pcp{font-size:18px;letter-spacing:0;font-weight:600;color:var(--dim)}
+.pcp small{font-size:13px;font-family:'DM Sans',sans-serif}
+.pcsub{font-size:13px;color:var(--dim);margin-bottom:24px;min-height:24px}
+.pcs-save{color:var(--grn)}
+.pc-div{height:1px;background:var(--bd);margin-bottom:22px}
+.pcf{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.pcf li{font-size:13px;color:var(--dim);padding-left:18px;position:relative}
+.pcf li::before{content:'·';position:absolute;left:0;color:var(--bd)}
+.pcf li.hl{color:var(--warm);font-weight:500}
+.pcf li.hl::before{content:'✦';color:var(--amb);font-size:9px;top:1px}
+.pccta{width:100%;justify-content:center;margin-bottom:12px}
+.pcnote{font-size:11px;color:var(--dim);text-align:center}
+.orion-sa{background:var(--sf);border:1px solid var(--bdg);border-radius:24px;padding:32px 36px;position:relative;overflow:hidden}
+.orion-sa::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at top left,rgba(74,227,140,.05) 0%,transparent 60%);pointer-events:none}
+.osa-in{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.osa-l h3{font-size:26px;margin-bottom:8px}
+.osa-l p{font-size:14px;color:var(--dim);max-width:320px}
+.osa-plans{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.osp{text-align:center}
+.osn{font-size:11px;font-weight:600;letter-spacing:.5px;color:var(--dim);text-transform:uppercase;margin-bottom:4px}
+.osp-p{font-family:'Syne',sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1}
+.osp-p.g{color:var(--grn)}
+.osp-s{font-size:11px;color:var(--dim)}
+.osp-free,.osp-sv{font-size:11px;color:var(--grn);margin-top:2px}
+.osp.fs{padding:12px 16px;background:rgba(74,227,140,.05);border:1px solid var(--bdg);border-radius:12px}
+
+/* ─── TRUST ─────────────────────────────────────────── */
+.tr-hd{text-align:center;margin-bottom:64px}
+.tr-hd h2{margin-bottom:14px}
+.tr-hd p{font-size:17px;color:var(--dim);max-width:540px;margin:0 auto}
+.tr-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.trc{background:var(--sf);border:1px solid var(--bd);border-radius:22px;padding:28px 24px;text-align:center;transition:border-color .3s,transform .3s var(--ease);position:relative;overflow:hidden;--mx:50%;--my:50%}
+.trc::before{content:'';position:absolute;inset:0;background:radial-gradient(160px circle at var(--mx) var(--my),rgba(74,227,140,.06),transparent 70%);border-radius:inherit;opacity:0;transition:opacity .35s;pointer-events:none}
+.trc:hover{border-color:var(--bdg);transform:translateY(-2px)}
+.trc:hover::before{opacity:1}
+.trc>*{position:relative;z-index:1}
+.trc-ico{margin-bottom:16px;color:var(--grn);display:flex;justify-content:center}
+.trc-ico svg{width:30px;height:30px}
+.trc h4{font-size:15px;margin-bottom:8px}
+.trc p{font-size:13px;color:var(--dim);line-height:1.55}
+
+/* ─── LANGUAGES ─────────────────────────────────────── */
+.lg-hd{text-align:center;margin-bottom:48px}
+.lg-hd h2{margin-bottom:12px}
+.lg-hd p{font-size:16px;color:var(--dim)}
+.lg-grid{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.lgc{display:inline-flex;align-items:center;gap:9px;padding:10px 18px;background:var(--sf);border:1px solid var(--bd);border-radius:40px;font-size:14px;font-weight:500;transition:all .25s ease}
+.lgc:hover{border-color:var(--bdg);color:var(--grn)}
+.lgc.rtl{direction:rtl}
+.lf{font-size:20px}
+
+/* ─── FAQ ───────────────────────────────────────────── */
+.fq-hd{margin-bottom:52px}
+.fq-hd h2{margin-bottom:12px}
+.fql{display:flex;flex-direction:column;gap:10px;max-width:820px;margin:0 auto}
+.fqi{background:var(--sf);border:1px solid var(--bd);border-radius:18px;overflow:hidden;transition:border-color .3s}
+.fqi:hover,.fqi.open{border-color:var(--bda)}
+.fqq{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;cursor:pointer;user-select:none}
+.fqqt{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;line-height:1.35}
+.fqch{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .3s ease;position:relative}
+.fqch::before{content:'';position:absolute;width:8px;height:1.5px;background:var(--warm);border-radius:1px}
+.fqch::after{content:'';position:absolute;width:1.5px;height:8px;background:var(--warm);border-radius:1px;transition:transform .3s ease}
+.fqi.open .fqch{border-color:var(--bda);background:var(--amb-dim)}
+.fqi.open .fqch::after{transform:scaleY(0)}
+.fqa{max-height:0;overflow:hidden;opacity:0;transition:max-height .45s var(--ease),opacity .3s ease}
+.fqi.open .fqa{max-height:360px;opacity:1}
+.fqa-inner{padding:0 24px 22px;font-size:14px;color:var(--dim);line-height:1.75;border-top:1px solid var(--bd)}
+.fqa-inner p{padding-top:18px}
+
+/* ─── CTA ───────────────────────────────────────────── */
+#cta{padding:80px 0}
+.ctac{background:var(--sf);border:1px solid var(--bda);border-radius:32px;padding:72px 48px;text-align:center;max-width:780px;margin:0 auto;position:relative;overflow:hidden}
+.ctac::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,146,42,.09) 0%,transparent 65%);pointer-events:none}
+.ctac>*{position:relative;z-index:1}
+.ctac h2{margin-bottom:18px}
+.ctac p{font-size:18px;color:var(--dim);margin-bottom:38px;max-width:460px;margin-left:auto;margin-right:auto}
+.cta-bts{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+.cta-note{font-size:12px;color:var(--dim);letter-spacing:.3px}
+
+/* ─── FOOTER ────────────────────────────────────────── */
+footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
+.fg-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:52px;margin-bottom:56px}
+.fb-logo{display:flex;align-items:center;gap:9px;font-family:'Syne',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.3px;margin-bottom:14px}
+.fb-logo svg{width:28px;height:28px}
+.fb p{font-size:13px;color:var(--dim);line-height:1.65;max-width:240px}
+.fc-hd{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--dim);margin-bottom:16px}
+.fc-ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.fc-ul li a{font-size:13px;color:var(--dim);transition:color .2s}
+.fc-ul li a:hover{color:var(--warm)}
+.fb-bot{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:1px solid var(--bd);flex-wrap:wrap;gap:12px}
+.fb-copy{font-size:12px;color:var(--dim)}
+.fb-slogan{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:var(--dim);letter-spacing:.3px}
+
+/* ─── NOTRE HISTOIRE / MANIFESTE ─── */
+#histoire{overflow:hidden}
+.hist-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hist-txt .tag{margin-bottom:20px}
+.hist-txt h2{margin-bottom:24px;max-width:520px}
+.hist-txt p{font-size:16px;color:var(--dim);line-height:1.82;margin-bottom:18px;max-width:550px}
+.hist-txt p strong{color:var(--warm);font-weight:600}
+.hist-txt .ta{color:var(--amb);font-style:normal}
+.hist-sign{display:flex;align-items:center;gap:14px;margin-top:30px;padding-top:24px;border-top:1px solid var(--bd)}
+.hist-sign svg{width:36px;height:36px;flex-shrink:0}
+.hist-sign-t{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;color:var(--warm);line-height:1.45}
+.hist-sign-t span{display:block;font-family:'DM Sans',sans-serif;font-weight:400;font-size:12px;color:var(--dim);margin-top:2px}
+.hist-art{display:flex;justify-content:center}
+.hist-art svg{width:100%;max-width:480px;height:auto}
+
+/* ─── GODIN PULL-QUOTE ─── */
+.godin{padding:34px 0 14px}
+.godin-q{max-width:900px;margin:0 auto;text-align:center;font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(22px,3.4vw,38px);line-height:1.28;letter-spacing:-.5px;color:var(--warm)}
+.godin-q em{font-style:normal;color:var(--amb)}
+
+/* ─── PREMIÈRES FAMILLES ─── */
+.pf{padding:0 0 4px}
+.pf-band{max-width:900px;margin:0 auto;background:var(--sf);border:1px solid var(--bda);border-radius:24px;padding:34px 40px;display:flex;align-items:center;gap:26px;position:relative;overflow:hidden}
+.pf-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 12% 50%,rgba(200,146,42,.08),transparent 62%);pointer-events:none}
+.pf-band>*{position:relative;z-index:1}
+.pf-ico{width:46px;height:46px;flex-shrink:0;color:var(--amb)}
+.pf-txt{flex:1;min-width:200px}
+.pf-txt h3{font-size:20px;margin-bottom:6px}
+.pf-txt p{font-size:14px;color:var(--dim);line-height:1.62}
+.pf-band .btn{flex-shrink:0}
+
+@media(max-width:900px){
+  .hist-grid{grid-template-columns:1fr;gap:38px}
+  .hist-art{order:-1}
+  .pf-band{flex-direction:column;text-align:center}
+  .pf-txt{min-width:0}
+}
+
+/* ─── NOTRE HISTOIRE / MANIFESTE ──────────────────── */
+#histoire{overflow:hidden}
+.hist-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hist-txt .tag{margin-bottom:22px}
+.hist-txt h2{margin-bottom:26px;max-width:520px}
+.hist-txt p{font-size:16px;color:var(--dim);line-height:1.85;margin-bottom:18px;max-width:540px}
+.hist-txt p strong{color:var(--warm);font-weight:600}
+.hist-txt .ta{color:var(--amb);font-style:normal}
+.hist-sign{display:flex;align-items:center;gap:14px;margin-top:32px;padding-top:26px;border-top:1px solid var(--bd)}
+.hist-sign-star{width:36px;height:36px;flex-shrink:0;filter:drop-shadow(0 0 14px var(--amb-glow))}
+.hist-sign-txt{font-family:'Syne',sans-serif;font-weight:700;font-size:14.5px;color:var(--warm);line-height:1.45}
+.hist-sign-txt span{display:block;font-family:'DM Sans',sans-serif;font-weight:400;font-size:12.5px;color:var(--dim);margin-top:2px}
+.hist-art{display:flex;justify-content:center}
+.hist-art svg{width:100%;max-width:470px;height:auto}
+
+/* ─── PREMIÈRES FAMILLES (bande honnête) ──────────── */
+.pf-band{max-width:900px;margin:0 auto;background:linear-gradient(135deg,var(--sf),var(--sf2));border:1px solid var(--bda);border-radius:24px;padding:34px 40px;display:flex;align-items:center;gap:26px;position:relative;overflow:hidden}
+.pf-band::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 100% at left center,var(--amb-dim),transparent 70%);pointer-events:none}
+.pf-band>*{position:relative;z-index:1}
+.pf-ico{width:48px;height:48px;flex-shrink:0;color:var(--amb);filter:drop-shadow(0 0 16px var(--amb-glow))}
+.pf-txt{flex:1;min-width:200px}
+.pf-txt h3{font-size:20px;margin-bottom:7px;font-family:'Syne',sans-serif;font-weight:800;color:var(--warm)}
+.pf-txt p{font-size:14px;color:var(--dim);line-height:1.65}
+.pf-band .btn{flex-shrink:0;white-space:nowrap}
+
+@media(max-width:900px){
+  .hist-grid{grid-template-columns:1fr;gap:36px}
+  .hist-art{order:-1}
+  .hist-art svg{max-width:380px}
+  .pf-band{flex-direction:column;text-align:center;padding:30px 26px}
+  .pf-txt{min-width:0}
+}
+
+/* ─── RESPONSIVE ────────────────────────────────────── */
+@media(max-width:1024px){
+  .ol{grid-template-columns:1fr;gap:36px}
+  .rv.L,.rv.R{--dir:0}
+  .pr-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .pcard.feat{grid-column:span 2}
+  .tr-grid{grid-template-columns:repeat(2,1fr)}
+  .fg-grid{grid-template-columns:1fr 1fr;gap:36px}
+  .steps{grid-template-columns:1fr;gap:28px;max-width:400px;margin:0 auto}
+  .sc-conn{display:none}
+}
+@media(max-width:768px){
+  section{padding:80px 0}
+  .nm,.nr .btn-o{display:none}
+  .mbtn{display:flex}
+  .hsubt{font-size:17px}
+  .hctas{gap:10px}
+  .ol{gap:28px}
+  .fg{grid-template-columns:1fr}
+  .eth-grid{grid-template-columns:1fr}
+  .pr-grid{grid-template-columns:1fr}
+  .pcard.feat{grid-column:span 1}
+  .tr-grid{grid-template-columns:1fr 1fr}
+  .fg-grid{grid-template-columns:1fr}
+  .stats-row{grid-template-columns:1fr}
+  .osa-in{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){
+  h1{font-size:38px}h2{font-size:28px}
+  .hlogo-wrap{width:160px;height:160px}.hlogo{width:160px;height:160px}
+  .or1{inset:-24px}.or2{inset:-40px}.or3{inset:-56px}
+  .ctac{padding:48px 24px}
+  .cta-bts{flex-direction:column}
+  .tr-grid{grid-template-columns:1fr}
+  .lg-grid{gap:8px}
+  .lgc{font-size:13px;padding:8px 14px}
+  .pca{font-size:44px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+
+<!-- ═══ DONNÉES STRUCTURÉES (rich snippets) ═══ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Sidélia",
+  "url": "https://sidelia.fr/",
+  "logo": "https://sidelia.fr/og-cover.png",
+  "description": "Écosystème IA familial éthique : protection parentale (Alma) et Superprofesseur IA (Orion).",
+  "foundingDate": "2026",
+  "slogan": "Alma veille. Orion guide. Vous aimez."
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Sidélia",
+  "description": "Contrôle parental éthique + Superprofesseur IA. Vous êtes informé, pas surveillant.",
+  "brand": { "@type": "Brand", "name": "Sidélia" },
+  "offers": [
+    { "@type": "Offer", "name": "Sidélia Annuel", "price": "89.99", "priceCurrency": "EUR", "url": "https://sidelia.fr/#tarifs", "availability": "https://schema.org/PreOrder" },
+    { "@type": "Offer", "name": "Sidélia Mensuel", "price": "14.99", "priceCurrency": "EUR", "url": "https://sidelia.fr/#tarifs", "availability": "https://schema.org/PreOrder" }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "Est-ce que Sidélia lit les messages de mon enfant ?", "acceptedAnswer": { "@type": "Answer", "text": "Non, jamais. Alma analyse le sens de façon autonome sans transmettre les messages. Vous recevez un score de risque de 0 à 100, le contexte général d Alma, et uniquement les extraits dangereux si le risque est avéré. Le nom du contact n est jamais transmis." } },
+    { "@type": "Question", "name": "Comment fonctionne la détection de danger par Alma ?", "acceptedAnswer": { "@type": "Answer", "text": "Alma évalue en continu le contexte, le ton et les signaux comportementaux pour produire un score de 0 à 100, classé en 5 niveaux : Info, Attention, Important, Urgent, Critique. Elle n alerte que lorsque c est vraiment nécessaire." } },
+    { "@type": "Question", "name": "Orion peut-il vraiment remplacer un professeur particulier ?", "acceptedAnswer": { "@type": "Answer", "text": "Orion est un Superprofesseur IA disponible 24h/24, du CE1 à la Terminale, toutes matières. Il s adapte au niveau de l enfant, lit une photo de cahier, et choisit entre enseigner la notion ou accompagner l exercice sans le faire à la place. Inclus dès 7,50 €/mois." } },
+    { "@type": "Question", "name": "Mes données sont-elles vraiment hébergées en Europe ?", "acceptedAnswer": { "@type": "Answer", "text": "Oui. Toutes les données familiales sont hébergées exclusivement dans l Union Européenne. Sidélia est conçu RGPD natif, par architecture et non en option. Aucun transfert vers des pays tiers." } },
+    { "@type": "Question", "name": "L'essai gratuit nécessite-t-il une carte bancaire ?", "acceptedAnswer": { "@type": "Answer", "text": "L essai de 3 jours demande d enregistrer une carte pour sécuriser l accès, mais aucun prélèvement n a lieu pendant l essai. Vous pouvez annuler à tout moment, sans frais ni engagement." } },
+    { "@type": "Question", "name": "À partir de quel âge peut-on utiliser Sidélia ?", "acceptedAnswer": { "@type": "Answer", "text": "Dès 7 ans (CE1) pour Orion, et dès qu un enfant utilise un smartphone pour Alma. La protection s ajuste selon l âge et chaque profil est personnalisable." } },
+    { "@type": "Question", "name": "Mon enfant peut-il désactiver Sidélia sur son téléphone ?", "acceptedAnswer": { "@type": "Answer", "text": "La désinstallation déclenche une notification immédiate au parent. Sidélia peut aussi être protégé par un code PIN connu du seul parent. La supervision continue même en arrière-plan." } }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="noise" aria-hidden="true"></div>
+<canvas id="c" aria-hidden="true"></canvas>
+
+<!-- ═══ NAV ═══════════════════════════════════════════ -->
+<nav id="nav" aria-label="Navigation principale">
+  <div class="ni">
+    <a class="nl" href="#hero" aria-label="Sidélia accueil">
+      <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="nav-st" gradientUnits="userSpaceOnUse" cx="55" cy="49" r="40"><stop offset="0" stop-color="#FFF"/><stop offset=".55" stop-color="#FBF3D8"/><stop offset="1" stop-color="#E8C45A"/></radialGradient></defs><path d="M60 32 L66.25 49.18 L84.25 46 L72.5 60 L84.25 74 L66.25 70.83 L60 88 L53.75 70.83 L35.75 74 L47.5 60 L35.75 46 L53.75 49.18 Z" fill="url(#nav-st)"/><circle cx="56" cy="55" r="4.5" fill="#FFF" fill-opacity=".85"/></svg>
+      Sidélia
+    </a>
+    <ul class="nm" id="navMenu">
+      <li><a href="#ethique">Éthique</a></li>
+      <li><a href="#alma">Alma</a></li>
+      <li><a href="#orion">Orion</a></li>
+      <li><a href="#cercle">Le cercle</a></li>
+      <li><a href="#tarifs">Tarifs</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nr">
+      <a href="#tarifs" class="btn btn-o" style="font-size:13px;padding:9px 18px">Se connecter</a>
+      <a href="#tarifs" class="btn btn-a" style="font-size:13px;padding:9px 18px">Essai gratuit</a>
+      <button class="mbtn" id="mbtn" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <div class="nmob" id="mobileMenu">
+    <a href="#ethique">Éthique</a>
+    <a href="#alma">Alma — Protection</a>
+    <a href="#orion">Orion — Éducation</a>
+    <a href="#cercle">Le cercle de gardiens</a>
+    <a href="#tarifs">Tarifs</a>
+    <a href="#faq">FAQ</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ════════════════════════════════════════════ -->
+<section id="hero" aria-label="Accueil Sidélia">
+  <div class="hg1" aria-hidden="true"></div>
+  <div class="hg2" aria-hidden="true"></div>
+  <div class="hc">
+    <div class="hbrow"><div class="hbrow-dot" aria-hidden="true"></div>Alma &amp; Orion — Écosystème IA familial</div>
+
+    <!-- LOGO SIDELIA VERBATIM avec orbites -->
+    <div class="hlogo-wrap" aria-hidden="true">
+      <div class="orbit-ring or1"></div>
+      <div class="orbit-ring or2"></div>
+      <div class="orbit-ring or3"></div>
+      <svg class="hlogo" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Logo Sidélia" style="width:100%;height:100%">
+        <defs>
+          <radialGradient id="h-halo" gradientUnits="userSpaceOnUse" cx="60" cy="60" r="52"><stop offset="0" stop-color="#C8922A"/><stop offset="1" stop-color="#C8922A" stop-opacity="0"/></radialGradient>
+          <radialGradient id="h-star" gradientUnits="userSpaceOnUse" cx="55" cy="49" r="40"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FBF3D8"/><stop offset="1" stop-color="#E8C45A"/></radialGradient>
+          <radialGradient id="h-alma"><stop offset="0" stop-color="#FBF3D8"/><stop offset="1" stop-color="#C8922A"/></radialGradient>
+          <radialGradient id="h-orion"><stop offset="0" stop-color="#BFFFE0"/><stop offset="1" stop-color="#4AE38C"/></radialGradient>
+          <style>.h-halo{animation:h-halo 2.2s ease-in-out infinite alternate}@keyframes h-halo{from{opacity:.30}to{opacity:.55}}.h-star{animation:h-pulse 1.6s ease-in-out infinite alternate;transform-origin:60px 60px}@keyframes h-pulse{from{transform:scale(.97)}to{transform:scale(1.03)}}</style>
+        </defs>
+        <circle class="h-halo" cx="60" cy="60" r="52" fill="url(#h-halo)"/>
+        <ellipse cx="60" cy="60" rx="52" ry="17" transform="rotate(-12 60 60)" fill="none" stroke="#C8922A" stroke-opacity=".34" stroke-width="1.6"/>
+        <g transform="rotate(-12 60 60)">
+          <circle r="7" fill="url(#h-alma)"><animateMotion dur="11s" repeatCount="indefinite" path="M8 60A52 17 0 1 1 112 60A52 17 0 1 1 8 60"/></circle>
+          <circle r="7" fill="url(#h-orion)"><animateMotion dur="11s" begin="-5.5s" repeatCount="indefinite" path="M8 60A52 17 0 1 1 112 60A52 17 0 1 1 8 60"/></circle>
+        </g>
+        <g class="h-star">
+          <path d="M60 32 L66.25 49.18 L84.25 46 L72.5 60 L84.25 74 L66.25 70.83 L60 88 L53.75 70.83 L35.75 74 L47.5 60 L35.75 46 L53.75 49.18 Z" fill="url(#h-star)"/>
+          <circle cx="56" cy="55" r="4.5" fill="#FFFFFF" fill-opacity=".85"/>
+        </g>
+      </svg>
+    </div>
+
+    <h1 class="ht">
+      <span class="l1">Alma veille.</span>
+      <span class="lg">Orion guide.</span>
+      <span class="l2">Vous aimez.</span>
+    </h1>
+    <p class="hsubt">Sidélia réunit <strong style="color:var(--warm)">Alma</strong> (protection parentale éthique) et <strong style="color:var(--grn)">Orion</strong> (Superprofesseur IA) dans un seul écosystème familial. Dès 7,50 €/mois.</p>
+    <div class="hctas">
+      <a href="#tarifs" class="btn btn-a btn-lg">Essai 3 jours gratuit</a>
+      <a href="#ethique" class="btn btn-o btn-lg">Découvrir l'éthique →</a>
+    </div>
+    <div class="hduo">
+      <!-- ALMA LOGO MINI VERBATIM -->
+      <div class="hdp">
+        <svg width="26" height="26" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Alma" role="img">
+          <defs>
+            <radialGradient id="hd-ah" gradientUnits="userSpaceOnUse" cx="50" cy="50" r="49"><stop offset="0" stop-color="#C8922A"/><stop offset="1" stop-color="#C8922A" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hd-as" gradientUnits="userSpaceOnUse" cx="41.88" cy="40.72" r="33.35"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".42" stop-color="#E8C45A"/><stop offset="1" stop-color="#C8922A"/></radialGradient>
+            <radialGradient id="hd-asp"><stop offset="0" stop-color="#FBF3D8"/><stop offset="1" stop-color="#C8922A"/></radialGradient>
+          </defs>
+          <circle cx="50" cy="50" r="49" fill="url(#hd-ah)"/>
+          <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(-16 50 50)" fill="none" stroke="#C8922A" stroke-opacity=".5" stroke-width="2.5"/>
+          <g transform="rotate(-16 50 50)">
+            <circle r="5" fill="url(#hd-asp)"><animateMotion dur="9s" repeatCount="indefinite" path="M5 50A45 15 0 1 1 95 50A45 15 0 1 1 5 50"/></circle>
+            <circle r="5" fill="url(#hd-asp)"><animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite" path="M5 50A45 15 0 1 1 95 50A45 15 0 1 1 5 50"/></circle>
+          </g>
+          <path d="M50 21 L60.44 39.56 L79 50 L60.44 60.44 L50 79 L39.56 60.44 L21 50 L39.56 39.56 Z" fill="url(#hd-as)"/>
+          <circle cx="43.62" cy="42.46" r="4.64" fill="#FFFFFF" fill-opacity=".9"/>
+        </svg>
+        <span>Alma veille</span>
+      </div>
+      <span class="hduo-sep">·</span>
+      <!-- ORION LOGO MINI VERBATIM -->
+      <div class="hdp">
+        <svg width="26" height="26" viewBox="-90 -125 180 265" xmlns="http://www.w3.org/2000/svg" aria-label="Orion" role="img">
+          <defs>
+            <linearGradient id="hd-os" gradientUnits="userSpaceOnUse" x1="-45" y1="-90" x2="45" y2="95"><stop offset="0" stop-color="#FCF6E8"/><stop offset="0.55" stop-color="#DDD0B5"/><stop offset="1" stop-color="#A89A78"/></linearGradient>
+            <radialGradient id="hd-of" gradientUnits="userSpaceOnUse" cx="0" cy="-58" r="60"><stop offset="0" stop-color="#13271D"/><stop offset="1" stop-color="#040A07"/></radialGradient>
+            <radialGradient id="hd-oe" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#D9FFE9"/><stop offset="0.5" stop-color="#4AE38C"/><stop offset="1" stop-color="#3DA06A"/></radialGradient>
+          </defs>
+          <circle cx="0" cy="8" r="98" fill="#4AE38C" opacity=".05"/>
+          <rect x="-78" y="2" width="20" height="44" rx="10" fill="url(#hd-os)"/>
+          <rect x="58" y="2" width="20" height="44" rx="10" fill="url(#hd-os)"/>
+          <rect x="-52" y="-4" width="104" height="96" rx="40" fill="url(#hd-os)"/>
+          <rect x="-10" y="-18" width="20" height="20" rx="6" fill="#A89A78"/>
+          <rect x="-58" y="-92" width="116" height="86" rx="42" fill="url(#hd-os)"/>
+          <rect x="-44" y="-82" width="88" height="64" rx="30" fill="url(#hd-of)"/>
+          <ellipse cx="-18" cy="-50" rx="9.5" ry="11.5" fill="url(#hd-oe)"/>
+          <ellipse cx="18" cy="-50" rx="9.5" ry="11.5" fill="url(#hd-oe)"/>
+          <circle cx="-18" cy="-49" r="4.2" fill="#10301F"/>
+          <circle cx="18" cy="-49" r="4.2" fill="#10301F"/>
+          <line x1="0" y1="-92" x2="0" y2="-110" stroke="#A89A78" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="0" cy="-114" r="6" fill="#4AE38C"/>
+        </svg>
+        <span>Orion guide</span>
+      </div>
+    </div>
+    <div class="hscroll" aria-hidden="true"><span>Défiler</span><div class="hscroll-arr"></div></div>
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ══════════════════════════════════════ -->
+<div class="mrq" aria-hidden="true">
+  <div class="mrq-track">
+    <div class="mrq-inner">
+      <span>Contrôle parental éthique</span><span class="mrq-dot">✦</span>
+      <span>RGPD natif · Données en Europe</span><span class="mrq-dot">✦</span>
+      <span>Alma veille · Orion guide</span><span class="mrq-dot">✦</span>
+      <span>Essai 3 jours gratuit</span><span class="mrq-dot">✦</span>
+      <span>Vous êtes informé, pas surveillant</span><span class="mrq-dot">✦</span>
+      <span>Du CE1 à la Terminale</span><span class="mrq-dot">✦</span>
+      <span>7,50 €/mois · Sans engagement</span><span class="mrq-dot">✦</span>
+      <span>Protection éthique · Score 0–100</span><span class="mrq-dot">✦</span>
+      <!-- duplicate -->
+      <span>Contrôle parental éthique</span><span class="mrq-dot">✦</span>
+      <span>RGPD natif · Données en Europe</span><span class="mrq-dot">✦</span>
+      <span>Alma veille · Orion guide</span><span class="mrq-dot">✦</span>
+      <span>Essai 3 jours gratuit</span><span class="mrq-dot">✦</span>
+      <span>Vous êtes informé, pas surveillant</span><span class="mrq-dot">✦</span>
+      <span>Du CE1 à la Terminale</span><span class="mrq-dot">✦</span>
+      <span>7,50 €/mois · Sans engagement</span><span class="mrq-dot">✦</span>
+      <span>Protection éthique · Score 0–100</span><span class="mrq-dot">✦</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ÉTHIQUE ═══════════════════════════════════════ -->
+<section id="ethique">
+  <div class="gl gl-g" style="width:600px;height:600px;top:-200px;right:-200px;opacity:.10" aria-hidden="true"></div>
+  <div class="ctr">
+    <div class="eth-hd rv">
+      <div class="tag tag-g"><span class="tag-dot td-g" aria-hidden="true"></span>Notre philosophie</div>
+      <h2>Vous êtes <em class="ta">informé</em>,<br>pas surveillant.</h2>
+      <p>L'architecture de Sidélia empêche techniquement le parent d'accéder aux messages, à la caméra, au micro ou aux contacts. La confiance se construit par des limites réelles, pas des promesses.</p>
+    </div>
+    <div class="stats-row rv">
+      <div class="sc">
+        <div class="sn g" data-target="0" id="s1">0</div>
+        <div class="sl">messages lus<br>par le parent</div>
+      </div>
+      <div class="sc">
+        <div class="sn a" data-target="5" id="s2">5</div>
+        <div class="sl">niveaux d'alerte<br>contextualisés</div>
+      </div>
+      <div class="sc">
+        <div class="sn w" id="s3">0–100</div>
+        <div class="sl">score de risque<br>par Alma</div>
+      </div>
+    </div>
+    <div class="eth-grid stg">
+      <div class="eth-col">
+        <div class="eth-col-hd ech-no">✗ &nbsp;Alma ne peut pas</div>
+        <div class="ei"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7.5 6.5 0 0 1-10.7 5.9L4 19l1.6-4.2A6.5 6.5 0 0 1 12 5"/><path d="M14.5 5.2A7.5 6.5 0 0 1 20 11.5"/><line x1="4" y1="20" x2="20" y2="4"/></svg></div><div><h4>Lire vos messages</h4><p>Alma analyse sémantiquement — le contenu brut ne vous est jamais transmis.</p></div></div>
+        <div class="ei"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9V6a3 3 0 0 1 6 0v5"/><path d="M17 11a5 5 0 0 1-7.5 4.3"/><path d="M7 11a5 5 0 0 0 1.2 3.3"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="4" y1="20" x2="20" y2="4"/></svg></div><div><h4>Accéder au micro ou à la caméra</h4><p>Aucun accès à ces capteurs. Architecture fermée par design.</p></div></div>
+        <div class="ei"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="3"/><path d="M6 20a6 6 0 0 1 12 0"/><line x1="4" y1="20" x2="20" y2="4"/></svg></div><div><h4>Voir les contacts</h4><p>Le nom des interlocuteurs n'est jamais transmis au parent.</p></div></div>
+        <div class="ei"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a8.5 6 0 0 1 13-3.5"/><path d="M19.5 12a8.5 6 0 0 1-12 4.2"/><circle cx="12" cy="12" r="2.2"/><line x1="4" y1="20" x2="20" y2="4"/></svg></div><div><h4>Vous transformer en espion</h4><p>Vous recevez ce qui compte — score, contexte, extraits dangereux uniquement si avéré.</p></div></div>
+      </div>
+      <div class="eth-col">
+        <div class="eth-col-hd ech-yes">✓ &nbsp;Alma peut</div>
+        <div class="ei yes"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3.5l2-6 3.5 13 2.5-9 1.5 4H21"/></svg></div><div><h4>Analyser le risque en continu</h4><p>Score 0–100 mis à jour en temps réel sur la base du comportement global.</p></div></div>
+        <div class="ei yes"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 16 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.4"/></svg></div><div><h4>GPS temps réel</h4><p>Seule la localisation est partagée directement. Zones sûres configurables.</p></div></div>
+        <div class="ei yes"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9.5a6 6 0 0 1 12 0c0 4 1.8 5.5 1.8 5.5H4.2S6 13.5 6 9.5z"/><path d="M10 19a2.2 2.2 0 0 0 4 0"/></svg></div><div><h4>Alerter quand c'est vraiment nécessaire</h4><p>5 niveaux — Alma ne génère pas de faux positifs inutiles.</p></div></div>
+        <div class="ei yes"><div class="ei-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><line x1="6" y1="6" x2="9.8" y2="9.8"/><line x1="18" y1="6" x2="14.2" y2="9.8"/><line x1="6" y1="18" x2="9.8" y2="14.2"/><line x1="18" y1="18" x2="14.2" y2="14.2"/></svg></div><div><h4>Gérer le cercle SOS enfant</h4><p>En un geste, votre enfant alerte les proches de confiance.</p></div></div>
+      </div>
+    </div>
+    <div class="cmp-wrap rv">
+      <h3 class="cmp-title">Le même objectif. <em class="ta">Une méthode opposée.</em></h3>
+      <div class="cmp">
+        <div class="cmp-hd">
+          <div>Ce que vit votre enfant</div>
+          <div class="cmp-c-them">Apps de contrôle classiques</div>
+          <div class="cmp-c-us">✦ Sidélia</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-feat">Lecture des messages par l'adulte</div>
+          <div class="cmp-c-them"><span class="cmp-x">✗</span>&nbsp;Possible</div>
+          <div class="cmp-c-us"><span class="cmp-ok">✓</span>&nbsp;Jamais — Alma analyse seule</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-feat">Accès au micro &amp; à la caméra</div>
+          <div class="cmp-c-them"><span class="cmp-x">✗</span>&nbsp;Souvent</div>
+          <div class="cmp-c-us"><span class="cmp-ok">✓</span>&nbsp;Fermé par design</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-feat">Liste des contacts de l'enfant</div>
+          <div class="cmp-c-them"><span class="cmp-x">✗</span>&nbsp;Visible</div>
+          <div class="cmp-c-us"><span class="cmp-ok">✓</span>&nbsp;Jamais transmise</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-feat">Score de risque transparent</div>
+          <div class="cmp-c-them"><span class="cmp-x">✗</span>&nbsp;Rare</div>
+          <div class="cmp-c-us"><span class="cmp-ok">✓</span>&nbsp;0–100, expliqué</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-feat">Données hébergées en Europe</div>
+          <div class="cmp-c-them"><span class="cmp-x">✗</span>&nbsp;Variable</div>
+          <div class="cmp-c-us"><span class="cmp-ok">✓</span>&nbsp;Oui, RGPD natif</div>
+        </div>
+        <div class="cmp-row">
+          <div class="cmp-feat">Aide aux devoirs intégrée</div>
+          <div class="cmp-c-them"><span class="cmp-x">✗</span>&nbsp;Aucune</div>
+          <div class="cmp-c-us"><span class="cmp-ok">✓</span>&nbsp;Orion, CE1 → Terminale</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rgpd-b rv">
+      <div class="rgpd-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3.2v4.8c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6.2z"/><path d="M8.8 12.2l2.1 2.1 4.3-4.3"/></svg></div>
+      <div>
+        <h4>RGPD natif · 100% Europe</h4>
+        <p>Toutes les données familiales sont hébergées au sein de l'Union Européenne. La conformité RGPD est l'architecture de base — pas une option.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ NOTRE HISTOIRE ════════════════════════════════ -->
+<section id="histoire">
+  <div class="gl gl-a" style="width:620px;height:620px;top:-180px;left:-260px;opacity:.09" aria-hidden="true"></div>
+  <div class="ctr" style="position:relative;z-index:1">
+    <div class="hist-grid">
+      <div class="hist-txt rv">
+        <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Notre histoire</div>
+        <h2>Alma, c'est d'abord le <em class="ta">prénom de ma fille.</em></h2>
+        <p>Je m'appelle <strong>Bruno</strong>. Je suis <strong>développeur</strong>, technicien supérieur en informatique, et surtout le père de trois enfants : <strong>Léandro, Andréa</strong>, et <strong>Alma</strong>, ma petite dernière. Un soir, en installant une de ces applications censées protéger mon enfant, je me suis vu faire : je lisais ses messages, un par un. Et j'ai eu honte. Je ne la protégeais pas — je l'espionnais.</p>
+        <p>Cette nuit-là, j'ai refusé un choix que je trouvais injuste : veiller sur mes enfants <em>ou</em> garder leur confiance. Toutes ces apps faisaient de moi un surveillant. Alors j'ai fait ce que je sais faire de mieux : j'en ai <strong>codé</strong> une autre — une où c'est <strong>l'intelligence artificielle qui veille</strong>, et qui ne me dit que ce qui compte vraiment. Jamais leurs secrets. L'essentiel, rien de plus.</p>
+        <p>À cette IA, j'ai donné le prénom de ma fille : <strong>Alma</strong>. Parce que c'est pour elle que tout a commencé — pour Léandro, pour Andréa, et au fond pour <strong>tous les enfants du monde</strong>, qui méritent d'être protégés sans jamais être trahis. À leurs côtés veille <strong>Orion</strong>, le compagnon qui les aide à grandir et à apprendre, comme une étoile qui guide. Sidélia, c'est ça : une promesse de père, devenue une promesse pour toutes les familles.</p>
+        <div class="hist-sign">
+          <svg viewBox="0 0 120 120" aria-hidden="true"><defs><radialGradient id="sg-star" gradientUnits="userSpaceOnUse" cx="55" cy="49" r="40"><stop offset="0" stop-color="#FFF"/><stop offset=".55" stop-color="#FBF3D8"/><stop offset="1" stop-color="#E8C45A"/></radialGradient></defs><path d="M60 32 L66.25 49.18 L84.25 46 L72.5 60 L84.25 74 L66.25 70.83 L60 88 L53.75 70.83 L35.75 74 L47.5 60 L35.75 46 L53.75 49.18 Z" fill="url(#sg-star)"/><circle cx="56" cy="55" r="4.5" fill="#FFF" fill-opacity=".85"/></svg>
+          <div class="hist-sign-t">Bruno<span>Fondateur de Sidélia · papa de Léandro, Andréa &amp; Alma</span></div>
+        </div>
+      </div>
+
+      <div class="hist-art rv">
+        <svg viewBox="0 0 560 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Une famille veillée par l'étoile Sidélia">
+          <defs>
+            <radialGradient id="il-glow" cx="50%" cy="20%" r="58%"><stop offset="0" stop-color="#C8922A" stop-opacity=".30"/><stop offset=".5" stop-color="#C8922A" stop-opacity=".07"/><stop offset="1" stop-color="#C8922A" stop-opacity="0"/></radialGradient>
+            <radialGradient id="il-star" gradientUnits="userSpaceOnUse" cx="270" cy="74" r="42"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".55" stop-color="#FBF3D8"/><stop offset="1" stop-color="#E8C45A"/></radialGradient>
+            <radialGradient id="il-almaglow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#E8C45A" stop-opacity=".55"/><stop offset="1" stop-color="#E8C45A" stop-opacity="0"/></radialGradient>
+            <linearGradient id="il-beam" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C8922A" stop-opacity=".16"/><stop offset="1" stop-color="#C8922A" stop-opacity="0"/></linearGradient>
+            <linearGradient id="il-fig" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F4F0E8"/><stop offset="1" stop-color="#CFC8BA"/></linearGradient>
+            <linearGradient id="il-figp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#EBE5D8"/><stop offset="1" stop-color="#BFB8A9"/></linearGradient>
+          </defs>
+
+          <!-- sky glow -->
+          <rect x="0" y="0" width="560" height="440" fill="url(#il-glow)"/>
+          <!-- scattered stars -->
+          <g fill="#F0EDE6">
+            <circle cx="78" cy="56" r="1.7" opacity=".5"/><circle cx="140" cy="116" r="1.1" opacity=".35"/>
+            <circle cx="486" cy="64" r="1.7" opacity=".5"/><circle cx="520" cy="150" r="1.1" opacity=".4"/>
+            <circle cx="44" cy="172" r="1.2" opacity=".3"/><circle cx="226" cy="44" r="1.3" opacity=".4"/>
+          </g>
+          <!-- Orion constellation -->
+          <g stroke="#4AE38C" stroke-width="1" opacity=".5" fill="#4AE38C">
+            <line x1="404" y1="118" x2="446" y2="100"/><line x1="446" y1="100" x2="482" y2="126"/>
+            <circle cx="404" cy="118" r="2.3"/><circle cx="446" cy="100" r="2.8"/><circle cx="482" cy="126" r="2.1"/>
+          </g>
+          <!-- light beam -->
+          <path d="M270 104 L214 372 L326 372 Z" fill="url(#il-beam)"/>
+          <!-- protective dome -->
+          <g fill="none" stroke="#C8922A" stroke-linecap="round">
+            <path d="M64 372 A206 206 0 0 1 476 372" stroke-opacity=".22" stroke-width="1.6"/>
+            <path d="M100 372 A170 170 0 0 1 440 372" stroke-opacity=".12" stroke-width="1.3"/>
+          </g>
+          <!-- Sidélia star (Alma) -->
+          <circle cx="270" cy="74" r="48" fill="url(#il-almaglow)"/>
+          <g transform="translate(270 74) scale(0.64) translate(-60 -60)">
+            <path d="M60 32 L66.25 49.18 L84.25 46 L72.5 60 L84.25 74 L66.25 70.83 L60 88 L53.75 70.83 L35.75 74 L47.5 60 L35.75 46 L53.75 49.18 Z" fill="url(#il-star)"/>
+            <circle cx="56" cy="55" r="4.5" fill="#FFFFFF" fill-opacity=".85"/>
+          </g>
+          <!-- ground -->
+          <line x1="84" y1="378" x2="476" y2="378" stroke="#1C2E22" stroke-width="2" stroke-linecap="round"/>
+          <!-- Parent -->
+          <path d="M140 378 C136 300 160 258 180 258 C200 258 224 300 220 378 Z" fill="url(#il-figp)"/>
+          <circle cx="180" cy="234" r="24" fill="url(#il-figp)"/>
+          <!-- Léandro -->
+          <path d="M222 378 C219 320 238 286 250 286 C262 286 281 320 278 378 Z" fill="url(#il-fig)"/>
+          <circle cx="250" cy="266" r="18" fill="url(#il-fig)"/>
+          <!-- Andréa -->
+          <path d="M286 378 C283 326 300 298 312 298 C324 298 341 326 338 378 Z" fill="url(#il-fig)"/>
+          <circle cx="312" cy="278" r="16" fill="url(#il-fig)"/>
+          <!-- Alma (la plus jeune) + petite étoile -->
+          <path d="M344 378 C341 338 356 314 366 314 C376 314 391 338 388 378 Z" fill="url(#il-fig)"/>
+          <circle cx="366" cy="296" r="14" fill="url(#il-fig)"/>
+          <g transform="translate(366 266) scale(0.12) translate(-60 -60)" fill="#E8C45A">
+            <path d="M60 32 L66.25 49.18 L84.25 46 L72.5 60 L84.25 74 L66.25 70.83 L60 88 L53.75 70.83 L35.75 74 L47.5 60 L35.75 46 L53.75 49.18 Z"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SIGNATURE GODIN ═══════════════════════════════ -->
+<section class="godin">
+  <div class="ctr">
+    <p class="godin-q rv">« La seule app où le parent ne peut <em>pas</em> espionner librement —<br>et c'est <em>exactement</em> pour ça qu'elle fonctionne. »</p>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ ALMA ══════════════════════════════════════════ -->
+<section id="alma">
+  <div class="gl gl-a" style="width:700px;height:700px;top:-200px;right:-250px;opacity:.10" aria-hidden="true"></div>
+  <div class="ctr" style="position:relative;z-index:1">
+    <div class="ph rv">
+      <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Alma — Protection parentale</div>
+      <h2>La garde rapprochée<br><em class="ta">qui respecte l'intimité</em></h2>
+      <p>Alma analyse sans lire, protège sans espionner. Elle vous informe de ce qui compte sans transformer votre relation parent-enfant en surveillance.</p>
+    </div>
+    <div class="ol">
+      <!-- SCORE + FEATURES -->
+      <div class="rv L">
+        <!-- ALMA LOGO VERBATIM -->
+        <div class="plw">
+          <svg class="pls" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Alma">
+            <defs>
+              <radialGradient id="a-halo" gradientUnits="userSpaceOnUse" cx="50" cy="50" r="49"><stop offset="0" stop-color="#C8922A"/><stop offset="1" stop-color="#C8922A" stop-opacity="0"/></radialGradient>
+              <radialGradient id="a-star" gradientUnits="userSpaceOnUse" cx="41.88" cy="40.72" r="33.35"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".42" stop-color="#E8C45A"/><stop offset="1" stop-color="#C8922A"/></radialGradient>
+              <radialGradient id="a-spark"><stop offset="0" stop-color="#FBF3D8"/><stop offset="1" stop-color="#C8922A"/></radialGradient>
+              <style>.ah-halo{animation:a-halo 1.8s ease-in-out infinite alternate}@keyframes a-halo{from{opacity:.30}to{opacity:.62}}.ah-star{animation:a-breath 2.2s ease-in-out infinite alternate;transform-origin:50px 50px}@keyframes a-breath{from{transform:scale(.95)}to{transform:scale(1.06)}}</style>
+            </defs>
+            <circle class="ah-halo" cx="50" cy="50" r="49" fill="url(#a-halo)"/>
+            <ellipse cx="50" cy="50" rx="45" ry="15" transform="rotate(-16 50 50)" fill="none" stroke="#C8922A" stroke-opacity=".5" stroke-width="2.5"/>
+            <g transform="rotate(-16 50 50)">
+              <circle r="5" fill="url(#a-spark)"><animateMotion dur="9s" repeatCount="indefinite" path="M5 50A45 15 0 1 1 95 50A45 15 0 1 1 5 50"/></circle>
+              <circle r="5" fill="url(#a-spark)"><animateMotion dur="9s" begin="-4.5s" repeatCount="indefinite" path="M5 50A45 15 0 1 1 95 50A45 15 0 1 1 5 50"/></circle>
+            </g>
+            <g class="ah-star">
+              <path d="M50 21 L60.44 39.56 L79 50 L60.44 60.44 L50 79 L39.56 60.44 L21 50 L39.56 39.56 Z" fill="url(#a-star)"/>
+              <circle cx="43.62" cy="42.46" r="4.64" fill="#FFFFFF" fill-opacity=".9"/>
+            </g>
+          </svg>
+          <div class="plt"><h3 class="ta">Alma</h3><p>Analyse continue, zéro intrusion</p></div>
+        </div>
+        <!-- Score demo -->
+        <div class="sd">
+          <div class="sdlbl">Score de risque actuel — Lucas, 13 ans</div>
+          <div class="sdrow">
+            <span class="sdnum" id="almaScore">0</span>
+            <span class="sdunit">/ 100</span>
+          </div>
+          <div class="sdbar"><div class="sdfill"></div></div>
+        </div>
+        <!-- Alert levels -->
+        <div class="al-t">5 niveaux d'alerte d'Alma</div>
+        <div class="als">
+          <span class="ap ap-i">Info</span>
+          <span class="ap ap-a">Attention</span>
+          <span class="ap ap-m">Important</span>
+          <span class="ap ap-u">Urgent</span>
+          <span class="ap ap-c">Critique</span>
+        </div>
+        <!-- Feature grid -->
+        <div class="fg stg">
+          <div class="fc"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3.2v4.8c0 4.8-3.2 8-7.5 9.5-4.3-1.5-7.5-4.7-7.5-9.5V6.2z"/><path d="M12 8.5l1 2.2 2.3.2-1.7 1.6.5 2.3-2.1-1.2-2.1 1.2.5-2.3-1.7-1.6 2.3-.2z"/></svg></div><h4>Bouclier IA</h4><p>Analyse sémantique continue. Score + contexte Alma + extraits dangereux uniquement.</p></div>
+          <div class="fc"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 16 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.4"/></svg></div><h4>GPS temps réel</h4><p>Localisation directe, zones sûres configurables. Alertes entrée / sortie.</p></div>
+          <div class="fc"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="20" x2="6" y2="13"/><line x1="12" y1="20" x2="12" y2="7"/><line x1="18" y1="20" x2="18" y2="11"/><line x1="3" y1="20" x2="21" y2="20"/></svg></div><h4>Temps d'écran détaillé</h4><p>Consommation réelle par application avec vrais logos. Vous voyez, vous décidez.</p></div>
+          <div class="fc"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.3"/></svg></div><h4>Blocage parental</h4><p>Vous choisissez les apps à bloquer selon la conso observée. Aucun verrou automatique.</p></div>
+          <div class="fc"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="3"/><line x1="6" y1="6" x2="9.8" y2="9.8"/><line x1="18" y1="6" x2="14.2" y2="9.8"/><line x1="6" y1="18" x2="9.8" y2="14.2"/><line x1="18" y1="18" x2="14.2" y2="14.2"/></svg></div><h4>Cercle SOS</h4><p>En un geste, votre enfant alerte les proches de confiance en cas d'urgence.</p></div>
+          <div class="fc"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="16" height="9" rx="2"/><line x1="21" y1="11" x2="21" y2="14"/><rect x="5.5" y="10.5" width="6" height="4" rx="1" fill="currentColor" stroke="none"/></svg></div><h4>Présence &amp; batterie</h4><p>Niveau de batterie et statut en ligne d'un coup d'œil.</p></div>
+        </div>
+      </div>
+      <!-- PHONE MOCKUP -->
+      <div class="rv R">
+        <div style="display:flex;justify-content:center">
+          <div class="phone pa">
+            <div class="pn"></div>
+            <div class="ps">
+              <div class="p-hd"><span class="p-ti">✦ Alma</span><span class="p-cl">14:32</span></div>
+              <div class="p-sc">
+                <div class="p-scl">Score de risque — Lucas</div>
+                <div class="p-scv" id="phoneScore">0</div>
+                <div class="p-scs">Tout va bien · mis à jour il y a 3 min</div>
+                <div class="p-bar"><div class="p-bf"></div></div>
+              </div>
+              <div class="p-sl">Alertes récentes</div>
+              <div class="p-al"><div class="p-ad"></div><p><strong style="color:var(--grn)">Info</strong> · Alma a analysé 34 messages · Rien à signaler</p></div>
+              <div class="p-sl">GPS — Maintenant</div>
+              <div class="p-gps">
+                <div class="p-gl" style="display:flex;align-items:center;gap:5px"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--amb)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5-6.5-10.5a6.5 6.5 0 0 1 13 0C18.5 16 12 21 12 21z"/><circle cx="12" cy="10.5" r="2.4"/></svg>Localisation en direct</div>
+                <div class="p-gm"><div class="p-gp"></div></div>
+                <div class="p-gs">Zone sûre : <em style="color:var(--grn)">École Jean Moulin</em></div>
+              </div>
+              <div class="p-sl">Temps d'écran aujourd'hui</div>
+              <div class="p-ar">
+                <div class="p-ap"><span class="p-ai"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="9" rx="3.5"/><line x1="7" y1="11.5" x2="7" y2="13.5"/><line x1="6" y1="12.5" x2="8" y2="12.5"/><circle cx="15.5" cy="11.8" r="0.9" fill="currentColor"/><circle cx="17.3" cy="13.5" r="0.9" fill="currentColor"/></svg></span><span class="p-an">Jeux</span><span class="p-at" style="color:var(--warn)">1h42</span></div>
+                <div class="p-ap"><span class="p-ai"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5.5" width="18" height="13" rx="2.5"/><path d="M10.5 9.5l4 2.5-4 2.5z" fill="currentColor" stroke="none"/></svg></span><span class="p-an">Vidéos</span><span class="p-at" style="color:var(--warm)">0h38</span></div>
+                <div class="p-ap"><span class="p-ai"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5a7 6.5 0 0 1-10 5.9L4.5 19l1.5-3.8A7 6.5 0 1 1 20 11.5z"/></svg></span><span class="p-an">Réseau</span><span class="p-at" style="color:var(--grn)">0h22</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ ORION ══════════════════════════════════════════ -->
+<section id="orion">
+  <div class="gl gl-g" style="width:650px;height:650px;top:-150px;left:-280px;opacity:.10" aria-hidden="true"></div>
+  <div class="ctr" style="position:relative;z-index:1">
+    <div class="ph rv">
+      <div class="tag tag-g"><span class="tag-dot td-g" aria-hidden="true"></span>Orion — Éducation</div>
+      <h2>Votre <em class="tg">Superprofesseur</em><br>dans la poche</h2>
+      <p>Un prof particulier disponible 24h/24, du CE1 à la Terminale. Un seul cours particulier coûte 50 €. Orion est là pour 7,50 €/mois.</p>
+    </div>
+    <div class="ol">
+      <!-- PHONE MOCKUP ORION -->
+      <div class="rv L">
+        <div style="display:flex;justify-content:center">
+          <div class="phone po">
+            <div class="pn"></div>
+            <div class="ps">
+              <div class="p-hd"><span class="p-ti g">Orion ✦</span><span class="p-cl">16:15</span></div>
+              <div class="p-xp">
+                <div class="p-xl">Ta progression aujourd'hui</div>
+                <div class="p-xr"><span class="p-xv">+240 XP</span><span class="p-xlv">Niveau 7 · Mathématicien</span></div>
+                <div class="p-xt"><div class="p-xf"></div></div>
+              </div>
+              <div class="p-chat">
+                <div class="p-on">Orion</div>
+                <div class="bbl ori">Salut&nbsp;! T'as une leçon à rattraper&nbsp;? Je suis là 🚀</div>
+                <div class="bbl usr">J'comprends pas les fractions</div>
+                <div class="bbl ori">Pas de panique&nbsp;! Une fraction c'est une part de pizza 🍕 Si tu coupes en 4 et t'en prends 3, t'as ¾&nbsp;!</div>
+                <div class="bbl usr">Ah oui&nbsp;! Et si elle est coupée en 8&nbsp;?</div>
+                <div class="bbl ori">Exactement&nbsp;! Tu commences à maîtriser ça 🎯</div>
+              </div>
+              <div class="p-in"><span class="p-it">Écris ou parle à Orion…</span><span style="margin-left:auto;display:flex"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--grn)" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M6 11a6 6 0 0 0 12 0"/><line x1="12" y1="17" x2="12" y2="20.5"/></svg></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- FEATURES + VALUE TABLE -->
+      <div class="rv R">
+        <!-- ORION LOGO VERBATIM -->
+        <div class="plw">
+          <svg class="pls" viewBox="-90 -125 180 265" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orion">
+            <defs>
+              <linearGradient id="o-shell" gradientUnits="userSpaceOnUse" x1="-45" y1="-90" x2="45" y2="95"><stop offset="0" stop-color="#FCF6E8"/><stop offset="0.55" stop-color="#DDD0B5"/><stop offset="1" stop-color="#A89A78"/></linearGradient>
+              <radialGradient id="o-face" gradientUnits="userSpaceOnUse" cx="0" cy="-58" r="60"><stop offset="0" stop-color="#13271D"/><stop offset="1" stop-color="#040A07"/></radialGradient>
+              <radialGradient id="o-eye" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#D9FFE9"/><stop offset="0.5" stop-color="#4AE38C"/><stop offset="1" stop-color="#3DA06A"/></radialGradient>
+              <style>
+                .o-float{animation:o-float 2.4s ease-in-out infinite alternate}
+                @keyframes o-float{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+                .o-antenna{animation:o-sway 2.6s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+                @keyframes o-sway{from{transform:rotate(2.5deg)}to{transform:rotate(-2.5deg)}}
+                .o-heart{animation:o-beat 1.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+                @keyframes o-beat{0%,40%,100%{transform:scale(1)}15%{transform:scale(1.16)}28%{transform:scale(1.06)}}
+                .o-eyes{animation:o-blink 5s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+                @keyframes o-blink{0%,93%,100%{transform:scaleY(1)}96%{transform:scaleY(.08)}}
+              </style>
+            </defs>
+            <circle cx="0" cy="8" r="98" fill="#4AE38C" opacity=".08"/>
+            <ellipse cx="0" cy="121" rx="58" ry="9" fill="#000000" opacity=".42"/>
+            <g class="o-float">
+              <rect x="-78" y="2" width="20" height="44" rx="10" fill="url(#o-shell)"/>
+              <circle cx="-68" cy="50" r="13" fill="#DDD0B5"/>
+              <rect x="58" y="2" width="20" height="44" rx="10" fill="url(#o-shell)"/>
+              <circle cx="68" cy="50" r="13" fill="#DDD0B5"/>
+              <rect x="-52" y="-4" width="104" height="96" rx="40" fill="url(#o-shell)"/>
+              <g class="o-heart">
+                <path d="M0 56 C-9 44 -24 46 -24 33 C-24 24 -16 19 -8 24 C-3 27 0 32 0 32 C0 32 3 27 8 24 C16 19 24 24 24 33 C24 46 9 44 0 56 Z" fill="#4AE38C" opacity=".20"/>
+                <path d="M0 56 C-9 44 -24 46 -24 33 C-24 24 -16 19 -8 24 C-3 27 0 32 0 32 C0 32 3 27 8 24 C16 19 24 24 24 33 C24 46 9 44 0 56 Z" fill="#4AE38C"/>
+              </g>
+              <rect x="-10" y="-18" width="20" height="20" rx="6" fill="#A89A78"/>
+              <rect x="-58" y="-92" width="116" height="86" rx="42" fill="url(#o-shell)"/>
+              <circle cx="-60" cy="-49" r="9" fill="#DDD0B5"/><circle cx="60" cy="-49" r="9" fill="#DDD0B5"/>
+              <circle cx="-60" cy="-49" r="4" fill="#4AE38C"/><circle cx="60" cy="-49" r="4" fill="#4AE38C"/>
+              <rect x="-44" y="-82" width="88" height="64" rx="30" fill="url(#o-face)"/>
+              <g class="o-eyes">
+                <ellipse cx="-18" cy="-50" rx="14" ry="16" fill="#4AE38C" opacity=".22"/>
+                <ellipse cx="18" cy="-50" rx="14" ry="16" fill="#4AE38C" opacity=".22"/>
+                <ellipse cx="-18" cy="-50" rx="9.5" ry="11.5" fill="url(#o-eye)"/>
+                <ellipse cx="18" cy="-50" rx="9.5" ry="11.5" fill="url(#o-eye)"/>
+                <circle cx="-18" cy="-49" r="4.2" fill="#10301F"/>
+                <circle cx="18" cy="-49" r="4.2" fill="#10301F"/>
+                <circle cx="-21" cy="-53" r="3" fill="#F3FFF8"/>
+                <circle cx="15" cy="-53" r="3" fill="#F3FFF8"/>
+              </g>
+              <path d="M-14 -34 Q0 -28 14 -34" fill="none" stroke="#4AE38C" stroke-width="3" stroke-linecap="round"/>
+              <g class="o-antenna">
+                <line x1="0" y1="-92" x2="0" y2="-110" stroke="#A89A78" stroke-width="4" stroke-linecap="round"/>
+                <circle cx="0" cy="-114" r="11" fill="#4AE38C" opacity=".25"/>
+                <circle cx="0" cy="-114" r="6" fill="#4AE38C"/>
+              </g>
+            </g>
+          </svg>
+          <div class="plt"><h3 class="tg">Orion</h3><p>Prêt à expliquer, jour et nuit</p></div>
+        </div>
+        <p class="pdesc">Ton prof particulier ne dort jamais, ne s'impatiente jamais et s'adapte au niveau de ton enfant en temps réel. Du CE1 à la Terminale, toutes matières.</p>
+        <!-- VALUE TABLE -->
+        <div class="vt" style="margin-bottom:28px">
+          <div class="vt-hd">Ancrage valeur</div>
+          <div class="vr"><span class="vs">Cours particulier (1h)</span><span class="vp old">30–80 €</span></div>
+          <div class="vr"><span class="vs">Orion Superprofesseur / mois</span><span class="vp old">200 €+</span></div>
+          <div class="vr"><span class="vs">Alma protection parentale</span><span class="vp old">~10 €/mois</span></div>
+          <div class="vr" style="border-bottom:none"><span class="vs" style="color:var(--warm);font-weight:600">Sidélia complet / an</span><span class="vp sid">89,99 €</span></div>
+        </div>
+        <!-- Feature grid -->
+        <div class="fg stg">
+          <div class="fc g"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10.5 5 8 4.5 4 5v12c4-.5 6.5 0 8 1.5"/><path d="M12 6.5C13.5 5 16 4.5 20 5v12c-4-.5-6.5 0-8 1.5z"/><line x1="12" y1="6.5" x2="12" y2="18.5"/></svg></div><h4>Leçons manquées rattrapées</h4><p>Orion réexplique toute notion du CE1 à la Terminale.</p></div>
+          <div class="fc g"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.6"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg></div><h4>2 modes pédagogiques</h4><p><strong style="color:var(--grn)">Apprendre</strong> · <strong style="color:var(--amb-lt)">Guider</strong></p></div>
+          <div class="fc g"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5A1.5 1.5 0 0 1 4.5 7H7l1.3-2h7.4L17 7h2.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5z"/><circle cx="12" cy="13" r="3.3"/></svg></div><h4>Photo du cahier</h4><p>Prenez l'exercice en photo — Orion lit, comprend, aide.</p></div>
+          <div class="fc g"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9.5v5h3.5l4.5 4v-13l-4.5 4z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></div><h4>Parle à voix haute</h4><p>Orion s'exprime par la voix pour maintenir l'attention.</p></div>
+          <div class="fc g"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M7 5H4.5v1.5a3 3 0 0 0 3 3"/><path d="M17 5h2.5v1.5a3 3 0 0 1-3 3"/><line x1="12" y1="14" x2="12" y2="17"/><path d="M8.5 20h7l-.7-3h-5.6z"/></svg></div><h4>Gamification complète</h4><p>XP, niveaux, missions, badges, streak quotidien.</p></div>
+          <div class="fc g"><div class="fc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><line x1="3.5" y1="12" x2="20.5" y2="12"/><path d="M12 3.5a13 13 0 0 1 0 17 13 13 0 0 1 0-17z"/></svg></div><h4>7 langues natives</h4><p>FR, EN, ES, PT, IT, DE, AR. RTL arabe inclus.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ CERCLE DE GARDIENS ═════════════════════════════ -->
+<section id="cercle">
+  <div class="gl gl-a" style="width:640px;height:640px;top:-160px;right:-240px;opacity:.08" aria-hidden="true"></div>
+  <div class="ctr" style="position:relative;z-index:1">
+    <div class="ph rv">
+      <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Co-parentalité · Cercle de gardiens</div>
+      <h2>Deux foyers,<br>une même <em class="ta">vérité</em> partagée</h2>
+      <p>Parents séparés, grands-parents, nounou, grand frère majeur : réunissez les adultes de confiance autour de votre enfant dans un seul cercle. Chacun voit la même chose, au même moment — la position, les alertes d'Alma, le temps d'écran. Plus de version à recouper, plus de « on ne m'avait rien dit ». Et même à plusieurs, personne ne lit jamais ses messages.</p>
+    </div>
+    <div class="ol">
+      <!-- CONSTELLATION DU CERCLE -->
+      <div class="cir-art rv L">
+        <svg viewBox="0 0 520 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Un cercle de gardiens veille autour de l'enfant : chacun reçoit la même information, personne ne lit ses messages.">
+          <defs>
+            <radialGradient id="cir-halo" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#C8922A" stop-opacity=".55"/><stop offset="1" stop-color="#C8922A" stop-opacity="0"/></radialGradient>
+            <radialGradient id="cir-star" cx="42%" cy="40%" r="58%"><stop offset="0" stop-color="#FFFFFF"/><stop offset=".5" stop-color="#FBF3D8"/><stop offset="1" stop-color="#E8C45A"/></radialGradient>
+            <radialGradient id="cir-amb"><stop offset="0" stop-color="#FBF3D8"/><stop offset="1" stop-color="#C8922A"/></radialGradient>
+            <radialGradient id="cir-grn"><stop offset="0" stop-color="#D9FFE9"/><stop offset="1" stop-color="#4AE38C"/></radialGradient>
+            <style>
+              .cir-halo{animation:cirhalo 2.6s ease-in-out infinite alternate;transform-origin:260px 210px}
+              @keyframes cirhalo{from{opacity:.45;transform:scale(.95)}to{opacity:.72;transform:scale(1.05)}}
+              .cir-star{animation:cirbreath 2.8s ease-in-out infinite alternate;transform-origin:260px 210px}
+              @keyframes cirbreath{from{transform:scale(.97)}to{transform:scale(1.05)}}
+              .cir-m1{animation:cirm 3.2s ease-in-out infinite alternate}
+              .cir-m2{animation:cirm 3.2s ease-in-out infinite alternate -1.6s}
+              @keyframes cirm{from{opacity:.82}to{opacity:1}}
+              @media(prefers-reduced-motion:reduce){.cir-halo,.cir-star,.cir-m1,.cir-m2{animation:none}}
+            </style>
+          </defs>
+          <g fill="#F0EDE6" opacity=".45">
+            <circle cx="64" cy="58" r="1.5"/><circle cx="468" cy="74" r="1.6"/><circle cx="86" cy="372" r="1.3"/><circle cx="446" cy="364" r="1.4"/><circle cx="36" cy="208" r="1.1"/><circle cx="498" cy="220" r="1.1"/>
+          </g>
+          <!-- orbite externe : les gardiens -->
+          <ellipse cx="260" cy="210" rx="214" ry="118" fill="none" stroke="#4AE38C" stroke-opacity=".20" stroke-width="1.3" stroke-dasharray="2 7"/>
+          <!-- deux orbites parents, symétriques -->
+          <ellipse cx="260" cy="210" rx="158" ry="62" fill="none" stroke="#C8922A" stroke-opacity=".30" stroke-width="1.5" transform="rotate(-9 260 210)"/>
+          <ellipse cx="260" cy="210" rx="158" ry="62" fill="none" stroke="#4AE38C" stroke-opacity=".26" stroke-width="1.5" transform="rotate(9 260 210)"/>
+          <!-- liens gardiens : pointillés, s'arrêtent avant le halo (n'entrent jamais) -->
+          <g stroke="#4AE38C" stroke-opacity=".26" stroke-width="1.1" stroke-dasharray="2 5" stroke-linecap="round">
+            <line x1="260" y1="92" x2="260" y2="150"/>
+            <line x1="150" y1="120" x2="214" y2="172"/>
+            <line x1="370" y1="120" x2="306" y2="172"/>
+          </g>
+          <g fill="url(#cir-grn)">
+            <circle cx="260" cy="92" r="8.5"/>
+            <circle cx="150" cy="120" r="7.5"/>
+            <circle cx="370" cy="120" r="7.5"/>
+          </g>
+          <!-- liens parents + jauges « même info » strictement égales -->
+          <line x1="126" y1="210" x2="200" y2="210" stroke="#C8922A" stroke-opacity=".4" stroke-width="1.3" stroke-linecap="round"/>
+          <line x1="394" y1="210" x2="320" y2="210" stroke="#4AE38C" stroke-opacity=".4" stroke-width="1.3" stroke-linecap="round"/>
+          <g fill="#F0EDE6" opacity=".55">
+            <circle cx="150" cy="210" r="1.7"/><circle cx="166" cy="210" r="1.7"/><circle cx="182" cy="210" r="1.7"/>
+            <circle cx="338" cy="210" r="1.7"/><circle cx="354" cy="210" r="1.7"/><circle cx="370" cy="210" r="1.7"/>
+          </g>
+          <!-- halo : la lumière entoure l'enfant, elle n'entre jamais -->
+          <circle class="cir-halo" cx="260" cy="210" r="60" fill="url(#cir-halo)"/>
+          <!-- lunes parents : même taille, même hauteur = mêmes droits -->
+          <circle class="cir-m1" cx="112" cy="210" r="14" fill="url(#cir-amb)"/>
+          <circle class="cir-m2" cx="408" cy="210" r="14" fill="url(#cir-grn)"/>
+          <!-- astre central = l'enfant -->
+          <g class="cir-star">
+            <g transform="translate(260 210) scale(0.9) translate(-50 -50)">
+              <path d="M50 21 L60.44 39.56 L79 50 L60.44 60.44 L50 79 L39.56 60.44 L21 50 L39.56 39.56 Z" fill="url(#cir-star)"/>
+              <circle cx="43.62" cy="42.46" r="4.64" fill="#FFFFFF" fill-opacity=".9"/>
+            </g>
+          </g>
+          <!-- rôles -->
+          <g font-family="DM Sans, sans-serif" font-size="8.5" font-weight="600" letter-spacing="1" text-anchor="middle">
+            <text x="112" y="240" fill="#C8922A">PARENT</text>
+            <text x="408" y="240" fill="#4AE38C">CO-PARENT</text>
+            <text x="260" y="74" fill="#7E9389">GARDIENS</text>
+          </g>
+        </svg>
+      </div>
+      <!-- PILIERS -->
+      <div class="rv R">
+        <div class="cir-list stg">
+          <div class="cir-item">
+            <div class="cir-ihd"><h4>La même vue, à la seconde près</h4><span class="cir-chip parent">Co-parents</span></div>
+            <p>Quand vous vivez séparés, papa et maman reçoivent exactement les mêmes informations en temps réel — aucun parent n'en sait plus que l'autre, sans avoir à se prévenir. Une protection alignée, jamais à deux vitesses.</p>
+          </div>
+          <div class="cir-item">
+            <div class="cir-ihd"><h4>Chacun à sa place dans le cercle</h4><span class="cir-chip owner">Vous · Parent</span></div>
+            <p>C'est vous qui ouvrez la famille et invitez par code ou QR. Le co-parent reçoit les mêmes droits que vous ; un proche de confiance, juste l'essentiel pour veiller au bon moment. Le rôle est scellé côté serveur : impossible de s'octroyer plus d'accès.</p>
+          </div>
+          <div class="cir-item">
+            <div class="cir-ihd"><h4>Quand l'un ne peut pas, un autre veille</h4><span class="cir-chip all">Tout le cercle</span></div>
+            <p>Réunion, nuit, trajet : si vous n'êtes pas disponible, le cercle reste éveillé. Et en cas d'urgence, l'enfant n'appelle pas une personne — son SOS atteint tout le cercle, et la première personne disponible répond.</p>
+          </div>
+        </div>
+        <div class="cir-sell rv">À plusieurs, on veille mieux. <em>Et même à plusieurs, personne ne lit ses messages</em> — chacun reçoit le même niveau d'info, jamais le contenu.</div>
+        <div class="cir-cta rv">
+          <a href="#tarifs" class="btn btn-a btn-lg">Composer notre cercle de veille</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ COMMENT ═══════════════════════════════════════ -->
+<section id="comment">
+  <div class="ctr">
+    <div class="hw-hd rv">
+      <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Démarrage simple</div>
+      <h2>Prêt en 3 minutes</h2>
+      <p>Installation sans effort, résultats immédiats. Votre famille est protégée dès le premier soir.</p>
+    </div>
+    <div class="steps stg">
+      <div class="step">
+        <div class="sn-num">Étape 01</div>
+        <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><line x1="10.5" y1="18.5" x2="13.5" y2="18.5"/><path d="M12 6.5v6"/><path d="M9.5 10l2.5 2.5 2.5-2.5"/></svg></div>
+        <h3>Téléchargez Sidélia</h3>
+        <p>App iOS et Android. Compte famille en 2 minutes — sans carte de crédit pour démarrer l'essai.</p>
+      </div>
+      <div class="sc-conn" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M6 18 L30 18 M22 10 L30 18 L22 26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step">
+        <div class="sn-num">Étape 02</div>
+        <div class="step-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 5.2a3.2 3.2 0 0 1 0 6"/><path d="M21 20a6 6 0 0 0-4.5-5.8"/></svg></div>
+        <h3>Liez votre famille</h3>
+        <p>Invitez votre enfant par QR code. Alma et Orion se configurent automatiquement.</p>
+      </div>
+      <div class="sc-conn" aria-hidden="true"><svg viewBox="0 0 36 36"><path d="M6 18 L30 18 M22 10 L30 18 L22 26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="step">
+        <div class="sn-num">Étape 03</div>
+        <div class="step-ico"><svg viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 2.5l1.6 6.2 6.4-.8-4.7 4.4 4.7 4.4-6.4-.8L12 21.5l-1.6-6.2-6.4.8 4.7-4.4-4.7-4.4 6.4.8z"/></svg></div>
+        <h3>Sidélia veille</h3>
+        <p>Alma analyse en continu. Orion est disponible dès que votre enfant ouvre l'app.</p>
+      </div>
+    </div>
+    <div class="hw-cta rv">
+      <a href="#tarifs" class="btn btn-a btn-lg">Vous êtes prêt ? Commencer l'essai →</a>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ TARIFS ═════════════════════════════════════════ -->
+<section id="tarifs">
+  <div class="gl gl-a" style="width:500px;height:500px;top:-100px;left:50%;transform:translateX(-50%);opacity:.09" aria-hidden="true"></div>
+  <div class="ctr" style="position:relative;z-index:1">
+    <div class="pr-hd rv">
+      <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Tarifs</div>
+      <h2>Simple. Transparent.<br><em class="ta">Sans surprise.</em></h2>
+      <p>Essai 3 jours gratuit sur toutes les offres. Résiliation à tout moment.</p>
+    </div>
+    <div class="pr-tg rv">
+      <div class="ptw" role="group" aria-label="Mode de facturation">
+        <button class="ptb" id="ptm" aria-pressed="false">Mensuel</button>
+        <button class="ptb on" id="pta" aria-pressed="true">Annuel <span class="ptbadge">&#8209;50&nbsp;%</span></button>
+      </div>
+    </div>
+    <div class="pr-grid stg">
+      <div class="pcard SC">
+        <div class="pcn">Sidélia Mensuel</div>
+        <div class="pca a" id="p-mensuel">14<span class="pcp">,99&nbsp;€<small>/mois</small></span></div>
+        <div class="pcsub" id="p-mensuel-sub">Facturation mensuelle</div>
+        <div class="pc-div"></div>
+        <ul class="pcf">
+          <li class="hl">Alma Protection incluse</li>
+          <li class="hl">Orion Superprofesseur inclus</li>
+          <li>GPS temps réel</li>
+          <li>Analyse sémantique des messages</li>
+          <li>Temps d'écran + blocage apps</li>
+          <li>Cercle SOS</li>
+          <li>Support prioritaire</li>
+        </ul>
+        <a href="#" class="btn btn-o pccta">Commencer l'essai</a>
+        <div class="pcnote">3 jours gratuits · CB requise</div>
+      </div>
+      <div class="pcard feat SC">
+        <div class="pr-rec">⭐ Recommandé · économie 50 %</div>
+        <div class="pcn">Sidélia Annuel</div>
+        <div class="pca a" id="p-annuel">7<span class="pcp">,50&nbsp;€<small>/mois</small></span></div>
+        <div class="pcsub"><span class="pcs-save" id="p-annuel-sub">Économisez 50&nbsp;% · 89,99&nbsp;€/an</span></div>
+        <div class="pc-div"></div>
+        <ul class="pcf">
+          <li class="hl">Alma Protection incluse</li>
+          <li class="hl">Orion Superprofesseur inclus</li>
+          <li>GPS temps réel</li>
+          <li>Analyse sémantique des messages</li>
+          <li>Temps d'écran + blocage apps</li>
+          <li>Cercle SOS</li>
+          <li>Support prioritaire</li>
+          <li>Nouvelles fonctionnalités en avant-première</li>
+        </ul>
+        <a href="#" class="btn btn-a pccta">Commencer l'essai</a>
+        <div class="pcnote">3 jours gratuits · CB requise · Résiliable</div>
+      </div>
+      <div class="pcard SC">
+        <div class="pcn">Famille</div>
+        <div class="pca a">14<span class="pcp">,99&nbsp;€<small>/mois</small></span></div>
+        <div class="pcsub" style="color:var(--dim)">Jusqu'à 3 enfants</div>
+        <div class="pc-div"></div>
+        <ul class="pcf">
+          <li class="hl">Profils enfants multiples</li>
+          <li>Tableau de bord famille unifié</li>
+          <li>Toutes les fonctionnalités Sidélia</li>
+          <li>Gestion centralisée</li>
+          <li>Statistiques famille</li>
+        </ul>
+        <a href="#" class="btn btn-o pccta">Commencer l'essai</a>
+        <div class="pcnote">3 jours gratuits · CB requise</div>
+      </div>
+    </div>
+    <!-- ORION STANDALONE -->
+    <div class="orion-sa rv">
+      <div class="osa-in">
+        <div class="osa-l">
+          <h3 class="tg">Orion seul</h3>
+          <p>Accès uniquement au Superprofesseur, sans les fonctionnalités de protection parentale d'Alma.</p>
+        </div>
+        <div class="osa-plans">
+          <div class="osp">
+            <div class="osn">Gratuit</div>
+            <div class="osp-p g">0&nbsp;€</div>
+            <div class="osp-s">/mois</div>
+            <div class="osp-free">3 sessions IA/jour</div>
+          </div>
+          <div class="osp">
+            <div class="osn">Mensuel</div>
+            <div class="osp-p g">7,99&nbsp;€</div>
+            <div class="osp-s">/mois</div>
+            <div class="osp-sv">Sessions illimitées</div>
+          </div>
+          <div class="osp fs">
+            <div class="osn">Annuel ⭐</div>
+            <div class="osp-p g">5&nbsp;€</div>
+            <div class="osp-s">/mois · 59,99&nbsp;€/an</div>
+            <div class="osp-sv">Économisez 37&nbsp;%</div>
+          </div>
+          <a href="#" class="btn btn-a" style="font-size:13px;padding:10px 20px">Essayer Orion →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ CONFIANCE ══════════════════════════════════════ -->
+<section id="confiance">
+  <div class="ctr">
+    <div class="tr-hd rv">
+      <div class="tag tag-g"><span class="tag-dot td-g" aria-hidden="true"></span>Confiance &amp; sécurité</div>
+      <h2>Construit pour<br><em class="tg">être digne de confiance</em></h2>
+      <p>Chaque décision d'architecture a été prise avec la sécurité de votre famille comme priorité absolue.</p>
+    </div>
+    <div class="tr-grid stg">
+      <div class="trc"><div class="trc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.4"/><g stroke-width="1.3"><line x1="12" y1="3.2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="20.8"/><line x1="3.2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="20.8" y2="12"/><line x1="5.9" y1="5.9" x2="7.2" y2="7.2"/><line x1="16.8" y1="16.8" x2="18.1" y2="18.1"/><line x1="18.1" y1="5.9" x2="16.8" y2="7.2"/><line x1="7.2" y1="16.8" x2="5.9" y2="18.1"/></g></svg></div><h4>RGPD natif</h4><p>Données hébergées exclusivement en Europe. Conformité dès la conception, pas en option.</p></div>
+      <div class="trc"><div class="trc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/></svg></div><h4>Chiffrement de bout en bout</h4><p>Toutes les communications entre Alma et nos serveurs sont chiffrées. Jamais en clair.</p></div>
+      <div class="trc"><div class="trc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"/><line x1="5" y1="7" x2="19" y2="7"/><path d="M5 7l-2.5 6a3 3 0 0 0 5 0z"/><path d="M19 7l2.5 6a3 3 0 0 1-5 0z"/><line x1="8" y1="20" x2="16" y2="20"/></svg></div><h4>Éthique par design</h4><p>L'architecture elle-même empêche l'accès aux messages, micro, caméra ou contacts.</p></div>
+      <div class="trc"><div class="trc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5l2.4 1.7 2.9-.3 1 2.8 2.4 1.7-.9 2.8.9 2.8-2.4 1.7-1 2.8-2.9-.3L12 21.5l-2.4-1.7-2.9.3-1-2.8L3.3 15.6l.9-2.8-.9-2.8 2.4-1.7 1-2.8 2.9.3z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>Conforme App Store &amp; Google Play</h4><p>Aucun accès non déclaré. Revue complète des deux plateformes.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ LANGUES ════════════════════════════════════════ -->
+<section id="langues" style="padding:80px 0">
+  <div class="ctr">
+    <div class="lg-hd rv">
+      <div class="tag tag-g"><span class="tag-dot td-g" aria-hidden="true"></span>7 langues natives</div>
+      <h2>Une famille, toutes les langues</h2>
+      <p>Alma et Orion répondent automatiquement dans la langue de l'utilisateur. L'arabe en sens RTL inclus.</p>
+    </div>
+    <div class="lg-grid stg">
+      <div class="lgc"><span class="lf">🇫🇷</span>Français</div>
+      <div class="lgc"><span class="lf">🇬🇧</span>English</div>
+      <div class="lgc"><span class="lf">🇪🇸</span>Español</div>
+      <div class="lgc"><span class="lf">🇵🇹</span>Português</div>
+      <div class="lgc"><span class="lf">🇮🇹</span>Italiano</div>
+      <div class="lgc"><span class="lf">🇩🇪</span>Deutsch</div>
+      <div class="lgc rtl"><span class="lf">🇸🇦</span>العربية <span style="font-size:11px;color:var(--grn);margin-left:4px">RTL</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ FAQ ════════════════════════════════════════════ -->
+<section id="faq">
+  <div class="ctr">
+    <div class="fq-hd rv">
+      <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Questions fréquentes</div>
+      <h2>On vous répond franchement</h2>
+    </div>
+    <div class="fql">
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">Est-ce que Sidélia lit les messages de mon enfant&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>Non. Jamais. Alma analyse sémantiquement le contenu de façon autonome, sans jamais vous transmettre les messages eux-mêmes. Ce que vous recevez&nbsp;: un score de risque entre 0 et 100, le contexte général d'Alma, et uniquement les extraits dangereux si le risque est avéré. Le nom du contact n'est jamais transmis non plus.</p></div></div></div>
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">Comment fonctionne la détection de danger par Alma&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>Alma utilise une analyse sémantique continue. Elle évalue le contexte, le ton, les mots-clés et les patterns comportementaux pour produire un score de risque de 0 à 100. Ce score est classé en 5 niveaux&nbsp;: Info, Attention, Important, Urgent, Critique. Alma ne vous alerte que quand c'est vraiment nécessaire — elle ne génère pas d'alertes inutiles.</p></div></div></div>
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">Orion peut-il vraiment remplacer un professeur particulier&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>Orion est un Superprofesseur IA disponible 24h/24, capable d'expliquer n'importe quelle notion du CE1 à la Terminale dans toutes les matières. Il s'adapte en temps réel au niveau de votre enfant, peut analyser une photo de cahier, et choisit entre deux modes&nbsp;: enseigner la notion ou accompagner l'exercice sans le faire à la place. Un cours particulier coûte en moyenne 30–80&nbsp;€/h. Orion est inclus à 7,50&nbsp;€/mois.</p></div></div></div>
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">Mes données sont-elles vraiment hébergées en Europe&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>Oui. Toutes les données familiales sont hébergées exclusivement au sein de l'Union Européenne. Sidélia est conçu RGPD natif — ce n'est pas une option, c'est l'architecture de base. Aucun transfert de données vers des pays tiers n'a lieu.</p></div></div></div>
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">L'essai gratuit nécessite-t-il une carte bancaire&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>L'essai de 3 jours nécessite d'enregistrer une carte bancaire pour sécuriser votre accès, mais aucun prélèvement n'est effectué pendant la période d'essai. Vous pouvez annuler à tout moment depuis les paramètres de l'application — sans frais et sans engagement.</p></div></div></div>
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">À partir de quel âge peut-on utiliser Sidélia&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>Sidélia est conçu pour les enfants à partir de 7 ans (CE1) pour Orion, et pour les enfants qui utilisent un smartphone pour Alma. La protection parentale est ajustable selon l'âge. Chaque profil est entièrement personnalisable.</p></div></div></div>
+      <div class="fqi rv"><div class="fqq"><span class="fqqt">Mon enfant peut-il désactiver Sidélia sur son téléphone&nbsp;?</span><div class="fqch" aria-hidden="true"></div></div><div class="fqa"><div class="fqa-inner"><p>La désinstallation de l'application vous envoie une notification immédiate. Par ailleurs, Sidélia peut être protégé par un code PIN côté enfant que seul le parent connaît. La protection GPS et la supervision Alma continuent même si l'application est en arrière-plan.</p></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PREMIÈRES FAMILLES ════════════════════════════ -->
+<section class="pf">
+  <div class="ctr">
+    <div class="pf-band rv">
+      <div class="pf-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l1.6 6.2 6.4-.8-4.7 4.4 4.7 4.4-6.4-.8L12 21.5l-1.6-6.2-6.4.8 4.7-4.4-4.7-4.4 6.4.8z"/></svg></div>
+      <div class="pf-txt">
+        <h3>Sidélia vient de naître.</h3>
+        <p>Nous lançons tout juste. Soyez parmi les premières familles à choisir une protection qui informe sans espionner — et aidez-nous à façonner Sidélia, soir après soir.</p>
+      </div>
+      <a href="#tarifs" class="btn btn-a">Rejoindre les premières familles</a>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ═══ CTA FINAL ══════════════════════════════════════ -->
+<section id="cta">
+  <div class="ctr">
+    <div class="ctac rv SC">
+      <div class="tag tag-a" style="margin-bottom:26px"><span class="tag-dot td-a" aria-hidden="true"></span>Rejoignez Sidélia</div>
+      <h2>Protégez et<br><em class="ta">enseignez ensemble.</em></h2>
+      <p>Alma veille. Orion guide. Vous aimez. Commencez l'essai gratuit aujourd'hui.</p>
+      <div class="cta-bts">
+        <a href="#tarifs" class="btn btn-a btn-xl">Rejoindre Sidélia</a>
+        <a href="#ethique" class="btn btn-o btn-xl">En savoir plus</a>
+      </div>
+      <div class="cta-note">3 jours gratuits · CB requise · Résiliable à tout moment · Données 🇪🇺</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════ -->
+<footer>
+  <div class="ctr">
+    <div class="fg-grid">
+      <div class="fb">
+        <div class="fb-logo">
+          <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><radialGradient id="f-st" gradientUnits="userSpaceOnUse" cx="55" cy="49" r="40"><stop offset="0" stop-color="#FFF"/><stop offset=".55" stop-color="#FBF3D8"/><stop offset="1" stop-color="#E8C45A"/></radialGradient></defs><path d="M60 32 L66.25 49.18 L84.25 46 L72.5 60 L84.25 74 L66.25 70.83 L60 88 L53.75 70.83 L35.75 74 L47.5 60 L35.75 46 L53.75 49.18 Z" fill="url(#f-st)"/><circle cx="56" cy="55" r="4.5" fill="#FFF" fill-opacity=".85"/></svg>
+          Sidélia
+        </div>
+        <p>L'écosystème IA familial qui protège et enseigne. Vos données restent en Europe. Éthique par design.</p>
+      </div>
+      <div>
+        <div class="fc-hd">Produits</div>
+        <ul class="fc-ul">
+          <li><a href="#alma">Alma — Protection</a></li>
+          <li><a href="#orion">Orion — Éducation</a></li>
+          <li><a href="#tarifs">Tarifs</a></li>
+          <li><a href="#tarifs">Essai gratuit</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-hd">Ressources</div>
+        <ul class="fc-ul">
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Guide parents</a></li>
+          <li><a href="#">Presse</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-hd">Légal</div>
+        <ul class="fc-ul">
+          <li><a href="#">Politique de confidentialité</a></li>
+          <li><a href="#">Conditions d'utilisation</a></li>
+          <li><a href="#">Gestion des cookies</a></li>
+          <li><a href="#">Mentions légales</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fb-bot">
+      <div class="fb-copy">&copy; 2026 Sidélia. Tous droits réservés. Hébergé en Europe 🇪🇺</div>
+      <div class="fb-slogan">Alma veille. Orion guide. Vous aimez.</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ══ CANVAS — étoiles + étoiles filantes + parallaxe ══ */
+(function(){
+  const c=document.getElementById('c'),ctx=c.getContext('2d');
+  let W,H,stars=[],shooting=[],mx=0,my=0,nextShoot=Date.now()+4000;
+
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;buildStars()}
+  function buildStars(){
+    stars=[];
+    const n=Math.min(Math.floor(W*H/5200),200);
+    for(let i=0;i<n;i++){
+      const t=Math.random();
+      stars.push({
+        x:Math.random()*W,y:Math.random()*H,
+        r:Math.random()*1.5+.15,
+        a:Math.random()*.5+.06,da:(Math.random()-.5)*.004,
+        depth:Math.random()*.6+.1,
+        color:t>.93?'rgba(200,146,42,1)':t>.87?'rgba(74,227,140,1)':'rgba(240,237,230,1)'
+      });
+    }
+  }
+
+  function addShoot(){
+    shooting.push({
+      x:Math.random()*W,y:Math.random()*H*.35,
+      vx:(Math.random()*5+4)*(Math.random()>.3?1:-1),
+      vy:Math.random()*2.5+1.5,
+      life:1,len:Math.random()*90+70,
+      amber:Math.random()>.45
+    });
+    nextShoot=Date.now()+5000+Math.random()*6000;
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const px=mx*.012,py=my*.01;
+
+    // Stars
+    for(const s of stars){
+      s.a+=s.da;
+      if(s.a<.04||s.a>.62)s.da*=-1;
+      ctx.globalAlpha=s.a;
+      ctx.fillStyle=s.color;
+      ctx.beginPath();
+      ctx.arc(s.x+px*s.depth*W,s.y+py*s.depth*H,s.r,0,Math.PI*2);
+      ctx.fill();
+    }
+
+    // Shooting stars
+    if(Date.now()>nextShoot)addShoot();
+    for(let i=shooting.length-1;i>=0;i--){
+      const s=shooting[i];
+      s.x+=s.vx;s.y+=s.vy;s.life-=.018;
+      if(s.life<=0||s.y>H||s.x<-200||s.x>W+200){shooting.splice(i,1);continue}
+      const tx=s.x-s.vx*(s.len/6),ty=s.y-s.vy*(s.len/6);
+      const g=ctx.createLinearGradient(s.x,s.y,tx,ty);
+      const alpha=s.life*.75;
+      const rgb=s.amber?`200,146,42`:`240,237,230`;
+      g.addColorStop(0,`rgba(${rgb},${alpha})`);
+      g.addColorStop(1,`rgba(${rgb},0)`);
+      ctx.globalAlpha=1;
+      ctx.strokeStyle=g;
+      ctx.lineWidth=1.6;
+      ctx.beginPath();ctx.moveTo(s.x,s.y);ctx.lineTo(tx,ty);ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+
+  const reduceMo=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finePtr=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(reduceMo){
+    c.style.display='none';
+  }else{
+    window.addEventListener('resize',resize,{passive:true});
+    if(finePtr)document.addEventListener('mousemove',e=>{mx=e.clientX/window.innerWidth-.5;my=e.clientY/window.innerHeight-.5},{passive:true});
+    resize();draw();
+  }
+})();
+
+/* ══ SCROLL PROGRESS ══ */
+const prog=document.getElementById('prog');
+window.addEventListener('scroll',()=>{
+  const p=scrollY/(document.documentElement.scrollHeight-innerHeight);
+  prog.style.width=`${Math.min(p*100,100)}%`;
+},{passive:true});
+
+/* ══ NAV ══ */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>60),{passive:true});
+
+/* ══ ACTIVE NAV LINKS ══ */
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nm a');
+const secObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){navLinks.forEach(l=>l.classList.toggle('act',l.getAttribute('href')==='#'+e.target.id))}})
+},{threshold:.35,rootMargin:'-60px 0px -60px 0px'});
+sections.forEach(s=>secObs.observe(s));
+
+/* ══ MOBILE MENU ══ */
+const mbtn=document.getElementById('mbtn'),mmenu=document.getElementById('mobileMenu');
+mbtn.addEventListener('click',()=>{
+  const open=mbtn.classList.toggle('open');
+  mbtn.setAttribute('aria-expanded',open);
+  mmenu.classList.toggle('open',open);
+});
+mmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  mbtn.classList.remove('open');mbtn.setAttribute('aria-expanded','false');mmenu.classList.remove('open');
+}));
+
+/* ══ REVEAL OBSERVER ══ */
+const rvObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');if(!e.target.classList.contains('stg'))rvObs.unobserve(e.target)}})
+},{threshold:.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv,.stg').forEach(el=>rvObs.observe(el));
+
+/* ══ COUNT-UP ══ */
+function countUp(el,target,dur=900,suffix=''){
+  let s=null;
+  const step=ts=>{
+    if(!s)s=ts;
+    const p=Math.min((ts-s)/dur,1),e=1-Math.pow(1-p,3);
+    el.textContent=Math.round(e*target)+suffix;
+    if(p<1)requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+const statObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const s1=document.getElementById('s1'),s2=document.getElementById('s2');
+      if(s1)countUp(s1,0,600);
+      if(s2)countUp(s2,5,700);
+      statObs.unobserve(e.target);
+    }
+  })
+},{threshold:.35});
+const sr=document.querySelector('.stats-row');
+if(sr)statObs.observe(sr);
+
+/* ══ ALMA SCORE ANIMATION ══ */
+const scoreObs=new IntersectionObserver(es=>{
+  es.forEach(e=>{
+    if(e.isIntersecting){
+      const as=document.getElementById('almaScore'),ps=document.getElementById('phoneScore');
+      if(as)countUp(as,12,1200);
+      if(ps)countUp(ps,12,1400);
+      scoreObs.unobserve(e.target);
+    }
+  })
+},{threshold:.4});
+const almaSection=document.getElementById('alma');
+if(almaSection)scoreObs.observe(almaSection);
+
+/* ══ CARD SPOTLIGHT (mouse tracking) ══ */
+document.querySelectorAll('.fc,.trc').forEach(card=>{
+  card.addEventListener('mousemove',e=>{
+    const r=card.getBoundingClientRect();
+    card.style.setProperty('--mx',`${e.clientX-r.left}px`);
+    card.style.setProperty('--my',`${e.clientY-r.top}px`);
+  });
+  card.addEventListener('mouseleave',()=>{
+    card.style.setProperty('--mx','50%');
+    card.style.setProperty('--my','50%');
+  });
+});
+
+/* ══ PRICING TOGGLE ══ */
+const ptm=document.getElementById('ptm'),pta=document.getElementById('pta');
+function setMode(m){
+  ptm.classList.toggle('on',m==='monthly');
+  pta.classList.toggle('on',m==='annual');
+  ptm.setAttribute('aria-pressed',m==='monthly');
+  pta.setAttribute('aria-pressed',m==='annual');
+  const pa=document.getElementById('p-annuel');
+  const pas=document.getElementById('p-annuel-sub');
+  if(m==='annual'){
+    pa.innerHTML='7<span class="pcp">,50\u00a0€<small>/mois</small></span>';
+    pas.innerHTML='<span class="pcs-save">Économisez 50\u00a0% · 89,99\u00a0€/an</span>';
+  } else {
+    pa.innerHTML='14<span class="pcp">,99\u00a0€<small>/mois</small></span>';
+    pas.innerHTML='Facturation mensuelle';
+  }
+}
+ptm.addEventListener('click',()=>setMode('monthly'));
+pta.addEventListener('click',()=>setMode('annual'));
+
+/* ══ FAQ ══ */
+document.querySelectorAll('.fqi').forEach(item=>{
+  const q=item.querySelector('.fqq');
+  q.setAttribute('role','button');
+  q.setAttribute('tabindex','0');
+  q.setAttribute('aria-expanded','false');
+  const toggle=()=>{
+    const wasOpen=item.classList.contains('open');
+    document.querySelectorAll('.fqi').forEach(i=>{i.classList.remove('open');i.querySelector('.fqq').setAttribute('aria-expanded','false')});
+    if(!wasOpen){item.classList.add('open');q.setAttribute('aria-expanded','true')}
+  };
+  q.addEventListener('click',toggle);
+  q.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+});
+
+/* ══ PAGE LOAD ══ */
+window.addEventListener('load',()=>document.body.classList.add('loaded'));
+</script>
+</body>
+</html>
