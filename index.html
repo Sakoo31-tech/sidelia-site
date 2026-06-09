@@ -46,7 +46,7 @@
 
 /* ─── RESET ─────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
+html{scroll-behavior:smooth;font-size:16px;overflow-x:hidden}
 body{background:var(--bg);color:var(--warm);font-family:'DM Sans',sans-serif;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased;opacity:0;transition:opacity .5s ease}
 body.loaded{opacity:1}
 a{color:inherit;text-decoration:none}
@@ -586,6 +586,11 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
   .fg-grid{grid-template-columns:1fr}
   .stats-row{grid-template-columns:1fr}
   .osa-in{flex-direction:column;align-items:flex-start}
+  /* halos décoratifs : recentrés et contenus pour ne jamais déborder horizontalement */
+  .hg1,.hg2{width:300px;height:300px;left:50%;right:auto;transform:translateX(-50%);filter:blur(60px)}
+  .hg1{top:30px}
+  .hg2{top:auto;bottom:60px}
+  .gl{display:none}
 }
 @media(max-width:480px){
   h1{font-size:38px}h2{font-size:28px}
