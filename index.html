@@ -621,6 +621,22 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}
 }
+
+/* ─── LISTE D'ATTENTE (formulaire) ──────────────────── */
+.wl{max-width:480px;margin:0 auto}
+.wl-row{display:flex;gap:10px;flex-wrap:wrap}
+.wl-input{flex:1;min-width:0;background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:14px 16px;color:var(--warm);font-family:'DM Sans',sans-serif;font-size:15px;transition:border-color .2s var(--ease)}
+.wl-input:focus{outline:none;border-color:var(--bda)}
+.wl-input::placeholder{color:#6B746E}
+.wl-btn{white-space:nowrap;flex-shrink:0}
+.wl-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.wl-consent{display:flex;gap:9px;align-items:flex-start;margin-top:14px;font-size:13px;color:var(--dim);text-align:left;line-height:1.5;cursor:pointer}
+.wl-consent input{margin-top:3px;accent-color:var(--amb);flex-shrink:0;width:16px;height:16px;cursor:pointer}
+.wl-consent a{color:var(--amb-lt)}
+.wl-msg{margin:14px 0 0;font-size:14px;min-height:20px;font-weight:500}
+.wl-msg.ok{color:var(--grn)}
+.wl-msg.err{color:var(--warn)}
+@media(max-width:480px){.wl-btn{width:100%}}
 </style>
 
 <!-- ═══ DONNÉES STRUCTURÉES (rich snippets) ═══ -->
@@ -688,7 +704,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
     </ul>
     <div class="nr">
       <a href="#tarifs" class="btn btn-o" style="font-size:13px;padding:9px 18px">Se connecter</a>
-      <a href="#tarifs" class="btn btn-a" style="font-size:13px;padding:9px 18px">Essai gratuit</a>
+      <a href="#cta" class="btn btn-a" style="font-size:13px;padding:9px 18px">Liste d'attente</a>
       <button class="mbtn" id="mbtn" aria-label="Menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -701,7 +717,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
     <a href="#cercle">Le cercle de gardiens</a>
     <a href="#tarifs">Tarifs</a>
     <a href="#faq">FAQ</a>
-    <a href="#tarifs" class="nmob-cta">Essai gratuit →</a>
+    <a href="#cta" class="nmob-cta">Rejoindre la liste d'attente →</a>
   </div>
 </nav>
 
@@ -745,7 +761,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
     </h1>
     <p class="hsubt">Sidélia réunit <strong style="color:var(--warm)">Alma</strong> (protection parentale éthique) et <strong style="color:var(--grn)">Orion</strong> (Superprofesseur IA) dans un seul écosystème familial. Dès 7,50 €/mois.</p>
     <div class="hctas">
-      <a href="#tarifs" class="btn btn-a btn-lg">Essai 3 jours gratuit</a>
+      <a href="#cta" class="btn btn-a btn-lg">Être prévenu·e au lancement</a>
       <a href="#ethique" class="btn btn-o btn-lg">Découvrir l'éthique →</a>
     </div>
     <div class="hduo">
@@ -1310,7 +1326,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
         </div>
         <div class="cir-sell rv">À plusieurs, on veille mieux. <em>Et même à plusieurs, personne ne lit ses messages</em> — chacun reçoit le même niveau d'info, jamais le contenu.</div>
         <div class="cir-cta rv">
-          <a href="#tarifs" class="btn btn-a btn-lg">Composer notre cercle de veille</a>
+          <a href="#cta" class="btn btn-a btn-lg">Composer notre cercle de veille</a>
         </div>
       </div>
     </div>
@@ -1350,7 +1366,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
       </div>
     </div>
     <div class="hw-cta rv">
-      <a href="#tarifs" class="btn btn-a btn-lg">Vous êtes prêt ? Commencer l'essai →</a>
+      <a href="#cta" class="btn btn-a btn-lg">Rejoindre la liste d'attente →</a>
     </div>
   </div>
 </section>
@@ -1364,7 +1380,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
     <div class="pr-hd rv">
       <div class="tag tag-a"><span class="tag-dot td-a" aria-hidden="true"></span>Tarifs</div>
       <h2>Simple. Transparent.<br><em class="ta">Sans surprise.</em></h2>
-      <p>Essai 3 jours gratuit sur toutes les offres. Résiliation à tout moment.</p>
+      <p>Bientôt disponible — ces tarifs s'appliqueront à l'ouverture. Rejoignez la <a href="#cta" style="color:var(--amb-lt)">liste d'attente</a> pour être prévenu·e en premier.</p>
     </div>
     <div class="pr-tg rv">
       <div class="ptw" role="group" aria-label="Mode de facturation">
@@ -1387,7 +1403,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
           <li>Cercle SOS</li>
           <li>Support prioritaire</li>
         </ul>
-        <a href="#" class="btn btn-o pccta">Commencer l'essai</a>
+        <a href="#cta" class="btn btn-o pccta">Être prévenu·e au lancement</a>
         <div class="pcnote">3 jours gratuits · CB requise</div>
       </div>
       <div class="pcard feat SC">
@@ -1406,7 +1422,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
           <li>Support prioritaire</li>
           <li>Nouvelles fonctionnalités en avant-première</li>
         </ul>
-        <a href="#" class="btn btn-a pccta">Commencer l'essai</a>
+        <a href="#cta" class="btn btn-a pccta">Être prévenu·e au lancement</a>
         <div class="pcnote">3 jours gratuits · CB requise · Résiliable</div>
       </div>
       <div class="pcard SC">
@@ -1421,7 +1437,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
           <li>Gestion centralisée</li>
           <li>Statistiques famille</li>
         </ul>
-        <a href="#" class="btn btn-o pccta">Commencer l'essai</a>
+        <a href="#cta" class="btn btn-o pccta">Être prévenu·e au lancement</a>
         <div class="pcnote">3 jours gratuits · CB requise</div>
       </div>
     </div>
@@ -1451,7 +1467,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
             <div class="osp-s">/mois · 59,99&nbsp;€/an</div>
             <div class="osp-sv">Économisez 37&nbsp;%</div>
           </div>
-          <a href="#" class="btn btn-a" style="font-size:13px;padding:10px 20px">Essayer Orion →</a>
+          <a href="#cta" class="btn btn-a" style="font-size:13px;padding:10px 20px">Être prévenu·e →</a>
         </div>
       </div>
     </div>
@@ -1527,7 +1543,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
         <h3>Sidélia vient de naître.</h3>
         <p>Nous lançons tout juste. Soyez parmi les premières familles à choisir une protection qui informe sans espionner — et aidez-nous à façonner Sidélia, soir après soir.</p>
       </div>
-      <a href="#tarifs" class="btn btn-a">Rejoindre les premières familles</a>
+      <a href="#cta" class="btn btn-a">Rejoindre les premières familles</a>
     </div>
   </div>
 </section>
@@ -1538,14 +1554,19 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
 <section id="cta">
   <div class="ctr">
     <div class="ctac rv SC">
-      <div class="tag tag-a" style="margin-bottom:26px"><span class="tag-dot td-a" aria-hidden="true"></span>Rejoignez Sidélia</div>
-      <h2>Protégez et<br><em class="ta">enseignez ensemble.</em></h2>
-      <p>Alma veille. Orion guide. Vous aimez. Commencez l'essai gratuit aujourd'hui.</p>
-      <div class="cta-bts">
-        <a href="#tarifs" class="btn btn-a btn-xl">Rejoindre Sidélia</a>
-        <a href="#ethique" class="btn btn-o btn-xl">En savoir plus</a>
-      </div>
-      <div class="cta-note">3 jours gratuits · CB requise · Résiliable à tout moment · Données 🇪🇺</div>
+      <div class="tag tag-a" style="margin-bottom:26px"><span class="tag-dot td-a" aria-hidden="true"></span>Liste d'attente</div>
+      <h2>Sidélia arrive.<br><em class="ta">Soyez les premiers.</em></h2>
+      <p>L'application est en cours de finalisation. Laissez votre e-mail&nbsp;: vous serez prévenu·e dès l'ouverture, avant tout le monde.</p>
+      <form id="wlForm" class="wl" novalidate>
+        <div class="wl-row">
+          <input type="email" id="wlEmail" name="email" class="wl-input" placeholder="votre@email.fr" autocomplete="email" required aria-label="Votre adresse e-mail">
+          <button type="submit" class="btn btn-a btn-xl wl-btn">Être prévenu·e</button>
+        </div>
+        <input type="text" name="company" class="wl-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label class="wl-consent"><input type="checkbox" id="wlConsent" required> J'accepte d'être recontacté·e par e-mail au sujet du lancement de Sidélia. Voir la <a href="/confidentialite.html" target="_blank" rel="noopener">politique de confidentialité</a>.</label>
+        <p class="wl-msg" id="wlMsg" role="status" aria-live="polite"></p>
+      </form>
+      <div class="cta-note">Aucun spam · juste l'annonce du lancement · Données 🇪🇺</div>
     </div>
   </div>
 </section>
@@ -1567,7 +1588,7 @@ footer{padding:72px 0 40px;border-top:1px solid var(--bd)}
           <li><a href="#alma">Alma — Protection</a></li>
           <li><a href="#orion">Orion — Éducation</a></li>
           <li><a href="#tarifs">Tarifs</a></li>
-          <li><a href="#tarifs">Essai gratuit</a></li>
+          <li><a href="#cta">Liste d'attente</a></li>
         </ul>
       </div>
       <div>
@@ -1706,6 +1727,33 @@ mbtn.addEventListener('click',()=>{
 mmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
   mbtn.classList.remove('open');mbtn.setAttribute('aria-expanded','false');mmenu.classList.remove('open');
 }));
+
+/* ══ LISTE D'ATTENTE ══ */
+const wlForm=document.getElementById('wlForm');
+if(wlForm){
+  const WL_URL='https://europe-west1-iafamille-e5335.cloudfunctions.net/joinWaitlist';
+  const wlMsg=document.getElementById('wlMsg');
+  const wlEmail=document.getElementById('wlEmail');
+  const wlConsent=document.getElementById('wlConsent');
+  const EMAIL_RE=/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  wlForm.addEventListener('submit',async e=>{
+    e.preventDefault();
+    wlMsg.className='wl-msg';
+    const email=(wlEmail.value||'').trim();
+    if(!EMAIL_RE.test(email)){wlMsg.textContent='Entrez une adresse e-mail valide.';wlMsg.classList.add('err');wlEmail.focus();return;}
+    if(!wlConsent.checked){wlMsg.textContent='Merci de cocher la case de consentement.';wlMsg.classList.add('err');return;}
+    const btn=wlForm.querySelector('button[type=submit]');
+    const label=btn.textContent;btn.disabled=true;btn.textContent='Envoi…';
+    try{
+      const r=await fetch(WL_URL,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({email,consent:true,company:wlForm.querySelector('[name=company]').value,locale:navigator.language||''})});
+      const j=await r.json().catch(()=>({}));
+      if(r.ok&&j.ok){wlForm.reset();wlMsg.textContent='🎉 C’est noté ! On vous prévient dès l’ouverture.';wlMsg.classList.add('ok');}
+      else{wlMsg.textContent='Oups, réessayez dans un instant.';wlMsg.classList.add('err');}
+    }catch(_){wlMsg.textContent='Connexion impossible. Réessayez dans un instant.';wlMsg.classList.add('err');}
+    finally{btn.disabled=false;btn.textContent=label;}
+  });
+}
 
 /* ══ REVEAL OBSERVER ══ */
 const rvObs=new IntersectionObserver(es=>{
